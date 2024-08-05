@@ -1,0 +1,30 @@
+<!-- this base html template gets inherited by all html file children -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+    <link rel="icon" href="static/icons/favicon.ico" type="image/x-icon">
+     <!-- jinja block - allows us to transfer code between html files -->
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <script type="module">
+        import audiomotionAnalyzer from 'https://cdn.jsdelivr.net/npm/audiomotion-analyzer@4.5.0/+esm';
+        window.audiomotionAnalyzer = audiomotionAnalyzer;
+    </script>
+    <script type="module" src="{{url_for('static', filename='visualizer.js')}}"></script>
+    <script type="module" src="{{url_for('static', filename='main.js')}}"></script>
+    {% block body %}{% endblock %}
+</body>
+
+<footer>  
+    <p>Made By Kyler Chen&nbsp;&nbsp;|&nbsp;&nbsp;</p>
+    <p><a href="https://github.com/kylerc405" target="_blank"><img src="{{ url_for('static', filename='icons/github.png') }}" width="23em"></a></p>
+    <p>&nbsp;&nbsp;|&nbsp;&nbsp;</p>
+    <p><a href="https://instagram.com/kyler.chen" target="_blank"><img src="{{ url_for('static', filename='icons/instagram.png') }}" width="23em"></a></p>
+</footer>
+
+</html>
+

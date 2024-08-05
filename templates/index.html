@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Slowed + Reverb Remixer</title>
+
+{% endblock %}
+
+{% block body %}
+<!-- <script src="{{url_for('static', filename='reverb.js')}}"></script> -->
+
+<script>
+    function autoSubmit() {
+        document.getElementById("uploadForm").submit();
+    }
+</script>
+
+<div class="content">
+    <form id="uploadForm" method="POST" enctype="multipart/form-data">
+        {{form.hidden_tag()}}
+        <div id="formDiv">
+            <h1>Slowed + Reverb remixer</h1>
+            <!-- {{form.file.label(text="Select An Audio File")}} -->
+            <div id="buttonDiv">
+                <label id="fileUploadStyling"> Select an Audio File
+                    {{form.file(id="fileUploadOG", onchange="autoSubmit()", accept="audio/*")}}
+                </label>
+                <label id="downloadBtn">Download Audio</label>
+            </div>
+        </div>
+        <!-- <br> -->
+        <!-- <div>
+            {{form.submit()}}
+        </div> -->
+    </form>
+
+
+    {% if audio_file %}
+
+        <script>
+            const audioFile = "{{ audio_file }}";
+            const formDiv = document.getElementById("formDiv");
+            const download = document.getElementById("downloadBtn");
+            const content = document.querySelector(".content");
+            const fileUploadStyling = document.getElementById("fileUploadStyling");
+            const body = document.body;
+
+            if (audioFile) {
+                download.style.display = "inline-flex";
+                content.classList.add("uploaded");
+                formDiv.classList.add("uploaded");
+                fileUploadStyling.classList.add("uploaded");
+                body.classList.add("uploaded");
+            }
+            else {
+                download.style.display = "none";
+                content.classList.remove("uploaded");
+                formDiv.classList.remove("uploaded");
+                fileUploadStyling.classList.remove("uploaded");
+                body.classList.remove("uploaded");
+
+            }
+            if (audioFile == "static/temp.wav") {
+                download.style.display = "none";
+            }
+        </script>
+
+
+
+         <br>
+        <audio id="audioPlayer" src="{{ url_for('uploaded_file', filename=audio_file) }}" type="audio/wav">
+            <!-- <source id="audioSource" src="{{ url_for('uploaded_file', filename=audio_file) }}" type="audio/wav"> -->
+            <!-- generates url for uploaded_file function -->
+        </audio>
+
+        <!-- <br> -->
+         
+        <div id="main-container">
+            <div id="visuals-container">
+                <h2 id="songTitle" data-song-name="{{ song_name }}">{{ song_name }}</h2>
+                <div id="canvasContainer"><canvas id="visualizerCanvas"></canvas></div>
+            </div>
+
+
+            
+            <div class="effects">
+                <div class="effects-class" id="speed-div">
+                    <div class="effects-text">
+                        <label id="speedLabel" for="speedControl">SPEED</label>
+                        <br>
+                        <span id="speedValue">1.00</span><span id="units">x /  </span>
+                        <span id="transposeValue">0</span><span id="units"> st</span>
+                    </div>
+
+                    <input class="effectSlider" type="range" id="speedControl" min="-12" max="12" step="1" value="0">
+
+                    <div class="div-buttons">
+                        <label class="resetBtn" id="resetSpeed">RESET</label>
+                    </div>
+
+                </div>
+
+
+                
+                <div class="effects-class" id="reverb-div">
+                    <div class="effects-text">
+                        <label id="reverbLabel" for="reverbControl">REVERB</label>
+                        <br>
+                        <span id="reverbValue">0</span>%
+                    </div>
+
+                    <input class="effectSlider" type="range" id="reverbControl" min="0" max="1" step="0.01" value="0">
+
+
+                    <div class="div-buttons">
+                        <label id="resetReverb">RESET</label>
+                        <label isReversed="false" aria-checked="false" role="switch" id="reverseReverb">TYPE: NORMAL</label>
+
+                    </div>
+
+
+
+                </div>
+
+
+                
+                <div class="effects-class" id="gain-div">
+                    <div class="effects-text">
+                        <label id="volumeLabel" for="gainControl">VOLUME</label>
+                        <br>
+                        <span id="gainValue">1.00</span><span id="units">x</span>
+                    </div>
+
+                    <!-- <div class="slider-div"> -->
+                        <input class="effectSlider" type="range" id="gainControl" min="0" max="4" value="1" step="0.01"/>
+                    
+                    
+                    <div class="div-buttons">
+                        <label class="resetBtn" id="resetGain">RESET</label>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        <div id="time-outer-div">
+            <div id="times">       
+                <div class="timediv"><b id="curtime"></b></div> 
+    
+                <!-- <label data-playing="false" role="switch" aria-checked="false" id="playPauseButton">
+                    <img id="playPauseImg" src="static\icons\play-button (1).png" width="30em">
+                </label> -->
+                <div class="playpause">
+                    <input type="checkbox" value="None" id="playpause" name="check" data-playing="false" aria-checked="false"/>
+                    <label for="playpause"></label>
+                </div>
+                <div class="timediv"><b id="endtime"></b></div>
+    
+            </div>
+    
+    
+            <div id="timeline">
+                <input type="range" id="timeline-slider" min="0" max="100" value="0">
+            </div>
+        </div>
+
+        
+
+
+
+    {% endif %}
+
+   
+</div>
+{% endblock %}
+
