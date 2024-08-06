@@ -382,17 +382,24 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 }
 
 .effectSlider {
-    writing-mode: vertical-lr;
-    -webkit-appearance: slider-vertical; /* WebKit */
-    direction: rtl;
+    // writing-mode: vertical-lr;
+    // -webkit-appearance: slider-vertical; /* WebKit */
+    // direction: rtl;
+
+    transform: rotate(-90deg);
     grid-row: 2;
     align-self: center;
     justify-self: center;
     -webkit-appearance: none; /* Remove default styling for WebKit browsers */
     appearance: none; /* Remove default styling for other browsers */
-    width: 1vmax;
-    min-width: 1.2em; /* Full width */
-    height: 100%; /* Track height */
+
+
+    // width: 1vmax;
+    // min-width: 1.2em; /* Full width */
+    // height: 100%; /* Track height */
+
+
+
     // background: rgb(46, 46, 46); /* Track color */
     border-radius: 10px; /* Rounded corners */
     outline: none; /* Remove outline */
@@ -401,8 +408,8 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     // box-shadow: 1px 1px 5px $background;
     box-shadow: 2px 1px 7px rgb(48, 47, 47);
     
-    opacity: 0.7;
-    transition: opacity 0.2s;
+    // opacity: 0.7;
+    // transition: opacity 0.2s;
     // background: linear-gradient(to bottom, $main-text 73.2%, $secondary-text 73.2%);
 }
 #speedControl {
@@ -417,24 +424,13 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     background: linear-gradient(to bottom, $main-text 100%, $secondary-text 100%);
 }
 .effectSlider::-webkit-slider-runnable-track {
-    writing-mode: vertical-lr;
-    direction: rtl;
-    // opacity: 0.7;
-    // transition: opacity 0.2s;
-    
-    // background: rgb(46, 46, 46); /* Track color */
-    // border-radius: 10px; /* Rounded corners */
-    // border: 1px solid rgba(255, 255, 255, 0.466);
-    // box-shadow: 0px 1px 5px black;
-    // box-shadow: 2px 2px 4px rgb(17, 17, 17);
+    // writing-mode: vertical-lr;
+    // direction: rtl;
 }
 .effectSlider::-moz-range-track {
-    writing-mode: vertical-lr;
-    direction: rtl;
-    // background: rgb(46, 46, 46); /* Track color */
-    // border-radius: 10px; /* Rounded corners */
-    // border: 1px solid rgba(255, 255, 255, 0.466);
-    // box-shadow: 0px 1px 5px black;
+    // writing-mode: vertical-lr;
+    // direction: rtl;
+
 }
 /* Slider thumb (handle) styling */
 .effectSlider::-webkit-slider-thumb {
@@ -741,12 +737,10 @@ footer a {
     .effects {
         margin-top: 3%;
         width: 50%;
-        // border: 2px solid white;
     }
     .effectSlider {
-        height: 75%; /* Track height */
-        margin-top: -1.7em;
-        // position: absolute;
+        // height: 75%; /* Track height */
+        // margin-top: -1.7em;
     }
     #resetReverb {
         padding: 0.35em 0.17em 0.12em 0.3em;
@@ -1009,10 +1003,8 @@ footer a {
         font-size: (5vh, 0.9em, 8vh);
     }
     .effectSlider {
-        
-        width: 1vmax;
-        min-width: 1em; /* Full width */
-       
+        // width: 1vmax;
+        // min-width: 1em; /* Full width */
     }
     .effectSlider::-webkit-slider-thumb {
         width: 3em; /* Thumb width */
