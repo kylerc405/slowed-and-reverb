@@ -11,7 +11,7 @@
   font-style: normal;
 }
 body {
-  background-color: rgba(54, 76, 116, 0.856);
+  background-color: rgba(26, 59, 44, 0.795);
   color: #f5deb3;
   margin: 0;
   padding: 0;
@@ -125,9 +125,9 @@ html, body {
 }
 
 #resetReverb:hover {
-  color: rgba(54, 76, 116, 0.856);
+  color: rgba(26, 59, 44, 0.795);
   background: rgb(190, 190, 190);
-  color: rgba(54, 76, 116, 0.856);
+  color: rgba(26, 59, 44, 0.795);
   background: rgb(190, 190, 190);
 }
 
@@ -145,9 +145,9 @@ html, body {
 }
 
 .resetBtn:hover {
-  color: rgba(54, 76, 116, 0.856);
+  color: rgba(26, 59, 44, 0.795);
   background: rgb(190, 190, 190);
-  color: rgba(54, 76, 116, 0.856);
+  color: rgba(26, 59, 44, 0.795);
   background: rgb(190, 190, 190);
 }
 
