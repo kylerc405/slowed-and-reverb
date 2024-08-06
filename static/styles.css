@@ -11,7 +11,7 @@
   font-style: normal;
 }
 body {
-  background-color: rgba(26, 59, 44, 0.795);
+  background-color: rgba(54, 76, 116, 0.856);
   color: #f5deb3;
   margin: 0;
   padding: 0;
@@ -125,9 +125,9 @@ html, body {
 }
 
 #resetReverb:hover {
-  color: rgba(26, 59, 44, 0.795);
+  color: rgba(54, 76, 116, 0.856);
   background: rgb(190, 190, 190);
-  color: rgba(26, 59, 44, 0.795);
+  color: rgba(54, 76, 116, 0.856);
   background: rgb(190, 190, 190);
 }
 
@@ -145,9 +145,9 @@ html, body {
 }
 
 .resetBtn:hover {
-  color: rgba(26, 59, 44, 0.795);
+  color: rgba(54, 76, 116, 0.856);
   background: rgb(190, 190, 190);
-  color: rgba(26, 59, 44, 0.795);
+  color: rgba(54, 76, 116, 0.856);
   background: rgb(190, 190, 190);
 }
 
@@ -281,13 +281,18 @@ html, body {
 }
 
 .effectSlider {
-  transform: rotate(-90deg);
+  writing-mode: vertical-lr;
+  -webkit-appearance: slider-vertical; /* WebKit */
+  direction: rtl;
   grid-row: 2;
   align-self: center;
   justify-self: center;
   -webkit-appearance: none; /* Remove default styling for WebKit browsers */
   -moz-appearance: none;
        appearance: none; /* Remove default styling for other browsers */
+  width: 1vmax;
+  min-width: 1.2em; /* Full width */
+  height: 100%; /* Track height */
   border-radius: 10px; /* Rounded corners */
   outline: none; /* Remove outline */
   cursor: pointer; /* Pointer cursor on hover */
@@ -305,6 +310,16 @@ html, body {
 
 #reverbControl {
   background: linear-gradient(to bottom, #f5deb3 100%, rgba(206, 149, 111, 0.822) 100%);
+}
+
+.effectSlider::-webkit-slider-runnable-track {
+  writing-mode: vertical-lr;
+  direction: rtl;
+}
+
+.effectSlider::-moz-range-track {
+  writing-mode: vertical-lr;
+  direction: rtl;
 }
 
 /* Slider thumb (handle) styling */
@@ -527,6 +542,10 @@ footer a {
     margin-top: 3%;
     width: 50%;
   }
+  .effectSlider {
+    height: 75%; /* Track height */
+    margin-top: -1.7em;
+  }
   #resetReverb {
     padding: 0.35em 0.17em 0.12em 0.3em;
     margin: 0 0 0 0;
@@ -727,6 +746,10 @@ footer a {
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     font-size: 5vh, 0.9em, 8vh;
+  }
+  .effectSlider {
+    width: 1vmax;
+    min-width: 1em; /* Full width */
   }
   .effectSlider::-webkit-slider-thumb {
     width: 3em; /* Thumb width */

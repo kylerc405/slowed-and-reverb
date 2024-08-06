@@ -1,6 +1,6 @@
 
-// $background: rgba(54, 76, 116, 0.856);
-$background: rgba(26, 59, 44, 0.795);
+$background: rgba(54, 76, 116, 0.856);
+// $background: rgba(26, 59, 44, 0.795);
 $main-text: #f5deb3;
 $secondary-text: rgba(206, 149, 111, 0.822);
 
@@ -382,11 +382,13 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 }
 
 .effectSlider {
-    // writing-mode: vertical-lr;
-    // -webkit-appearance: slider-vertical; /* WebKit */
-    // direction: rtl;
+        //delete
+    writing-mode: vertical-lr;
+    -webkit-appearance: slider-vertical; /* WebKit */
+    direction: rtl;
 
-    transform: rotate(-90deg);
+        //add
+    // transform: rotate(-90deg);
     grid-row: 2;
     align-self: center;
     justify-self: center;
@@ -394,23 +396,17 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     appearance: none; /* Remove default styling for other browsers */
 
 
-    // width: 1vmax;
-    // min-width: 1.2em; /* Full width */
-    // height: 100%; /* Track height */
+        //delete 
+    width: 1vmax;
+    min-width: 1.2em; /* Full width */
+    height: 100%; /* Track height */
 
 
-
-    // background: rgb(46, 46, 46); /* Track color */
     border-radius: 10px; /* Rounded corners */
     outline: none; /* Remove outline */
     cursor: pointer; /* Pointer cursor on hover */
     border: 3px solid rgb(46, 46, 46);
-    // box-shadow: 1px 1px 5px $background;
     box-shadow: 2px 1px 7px rgb(48, 47, 47);
-    
-    // opacity: 0.7;
-    // transition: opacity 0.2s;
-    // background: linear-gradient(to bottom, $main-text 73.2%, $secondary-text 73.2%);
 }
 #speedControl {
     background: linear-gradient(to bottom, $main-text 48%, $secondary-text 52%);
@@ -424,13 +420,12 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     background: linear-gradient(to bottom, $main-text 100%, $secondary-text 100%);
 }
 .effectSlider::-webkit-slider-runnable-track {
-    // writing-mode: vertical-lr;
-    // direction: rtl;
+    writing-mode: vertical-lr;
+    direction: rtl;
 }
 .effectSlider::-moz-range-track {
-    // writing-mode: vertical-lr;
-    // direction: rtl;
-
+    writing-mode: vertical-lr;
+    direction: rtl;
 }
 /* Slider thumb (handle) styling */
 .effectSlider::-webkit-slider-thumb {
@@ -739,8 +734,8 @@ footer a {
         width: 50%;
     }
     .effectSlider {
-        // height: 75%; /* Track height */
-        // margin-top: -1.7em;
+        height: 75%; /* Track height */
+        margin-top: -1.7em;
     }
     #resetReverb {
         padding: 0.35em 0.17em 0.12em 0.3em;
@@ -1003,8 +998,8 @@ footer a {
         font-size: (5vh, 0.9em, 8vh);
     }
     .effectSlider {
-        // width: 1vmax;
-        // min-width: 1em; /* Full width */
+        width: 1vmax;
+        min-width: 1em; /* Full width */
     }
     .effectSlider::-webkit-slider-thumb {
         width: 3em; /* Thumb width */
