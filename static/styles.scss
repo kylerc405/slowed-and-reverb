@@ -36,7 +36,9 @@ body {
     justify-content: flex-end;
     align-items: center;
 }
-html, body {height: 100%; overflow: hidden}
+html, body {height: 100%; 
+    // overflow: hidden
+    }
 .content {
     margin: 0;
     padding: 0;
