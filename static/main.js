@@ -409,7 +409,7 @@ import { visualizeAudio } from "./visualizer.js";
         dryGainNode.gain.value = 1;
         reverbValue.textContent = parseFloat(0).toFixed(2)*100;
         reverbControl.value = 0;
-        reverbControl.style.background = 'linear-gradient(to bottom, #f5deb3 100%, rgba(206, 149, 111, 0.822) 100%)';
+        reverbControl.style.background = 'linear-gradient(to right, #f5deb3 100%, rgba(206, 149, 111, 0.822) 100%)';
     })
 
     //reverse reverb control
@@ -439,7 +439,7 @@ import { visualizeAudio } from "./visualizer.js";
 
     // visual stuff
     reverbControl.addEventListener("input", () => {
-        reverbControl.style.background = `linear-gradient(to top, rgba(206, 149, 111, 0.822) ${reverbControl.value*100}%, #f5deb3 ${reverbControl.value*100}%)`;
+        reverbControl.style.background = `linear-gradient(to right, rgba(206, 149, 111, 0.822) ${reverbControl.value*100}%, #f5deb3 ${reverbControl.value*100}%)`;
 
     })
 

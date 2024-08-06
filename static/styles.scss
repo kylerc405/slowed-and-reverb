@@ -122,7 +122,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     justify-content: flex-start;
     margin-top: 1em;
     flex-direction: column;
-    // border: 2px solid white;
+    border: 2px solid red;
     // height: 50%;
 }
 // #inner-reverb-div {
@@ -341,7 +341,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 .effects-class {
     display: grid;
     grid-template-rows: 12.5% 67.5% 20%;
-    // border: 1px solid white;
+    border: 1px solid white;
     width: 30%;
     height: 100%;
     text-align: center;
@@ -351,7 +351,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     grid-row: 1;
     align-self: center;
     line-height: 1.5em;
-    // border: 1px solid white;
+    border: 1px solid green;
     white-space: nowrap;
     color: $secondary-text;
     // text-shadow: 2px 0px 5px rgb(41, 35, 30);
@@ -381,12 +381,23 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     // border: 1px solid white;
 }
 
+#speedControl {
+    background: linear-gradient(to left, $main-text 48%, $secondary-text 52%);
+    // background: linear-gradient(to bottom, #f5e8d1 48%, #948c7d 52%);
+}
+#gainControl {
+    background: linear-gradient(to left, $main-text 72%, $secondary-text 76%);
+    // background: linear-gradient(to bottom, #f5e8d1 48%, #948c7d 52%);
+}
+#reverbControl {
+    background: linear-gradient(to left, $main-text 100%, $secondary-text 100%);
+}
+
 .effectSlider {
         //delete
     writing-mode: vertical-lr;
     -webkit-appearance: slider-vertical; /* WebKit */
-    direction: rtl;
-
+    // direction: ltr;
         //add
     // transform: rotate(-90deg);
     grid-row: 2;
@@ -401,31 +412,22 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     min-width: 1.2em; /* Full width */
     height: 100%; /* Track height */
 
-
     border-radius: 10px; /* Rounded corners */
     outline: none; /* Remove outline */
     cursor: pointer; /* Pointer cursor on hover */
     border: 3px solid rgb(46, 46, 46);
     box-shadow: 2px 1px 7px rgb(48, 47, 47);
+    // transform-origin: left bottom; /* Adjust origin to keep the slider in place */
 }
-#speedControl {
-    background: linear-gradient(to bottom, $main-text 48%, $secondary-text 52%);
-    // background: linear-gradient(to bottom, #f5e8d1 48%, #948c7d 52%);
-}
-#gainControl {
-    background: linear-gradient(to bottom, $main-text 72%, $secondary-text 76%);
-    // background: linear-gradient(to bottom, #f5e8d1 48%, #948c7d 52%);
-}
-#reverbControl {
-    background: linear-gradient(to bottom, $main-text 100%, $secondary-text 100%);
-}
+
 .effectSlider::-webkit-slider-runnable-track {
-    writing-mode: vertical-lr;
-    direction: rtl;
+    // writing-mode: vertical-lr;
+    direction: ltr;
+
 }
 .effectSlider::-moz-range-track {
-    writing-mode: vertical-lr;
-    direction: rtl;
+    // writing-mode: vertical-lr;
+    direction: ltr;
 }
 /* Slider thumb (handle) styling */
 .effectSlider::-webkit-slider-thumb {
@@ -442,6 +444,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     border: 3px solid rgb(29, 29, 29); 
     // margin-top: -0.5em;
     // box-shadow: 0px 1px 2px rgb(156, 156, 156);
+    box-sizing: content-box;
 }
 .effectSlider::-moz-range-thumb {
     width: 3.5em; /* Thumb width */

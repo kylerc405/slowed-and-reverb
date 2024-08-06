@@ -96,6 +96,7 @@ html, body {
   justify-content: flex-start;
   margin-top: 1em;
   flex-direction: column;
+  border: 2px solid red;
 }
 
 #reverseReverb {
@@ -242,6 +243,7 @@ html, body {
 .effects-class {
   display: grid;
   grid-template-rows: 12.5% 67.5% 20%;
+  border: 1px solid white;
   width: 30%;
   height: 100%;
   text-align: center;
@@ -252,6 +254,7 @@ html, body {
   grid-row: 1;
   align-self: center;
   line-height: 1.5em;
+  border: 1px solid green;
   white-space: nowrap;
   color: rgba(206, 149, 111, 0.822);
   font-size: 1.2em;
@@ -280,10 +283,21 @@ html, body {
   line-height: 75%;
 }
 
+#speedControl {
+  background: linear-gradient(to left, #f5deb3 48%, rgba(206, 149, 111, 0.822) 52%);
+}
+
+#gainControl {
+  background: linear-gradient(to left, #f5deb3 72%, rgba(206, 149, 111, 0.822) 76%);
+}
+
+#reverbControl {
+  background: linear-gradient(to left, #f5deb3 100%, rgba(206, 149, 111, 0.822) 100%);
+}
+
 .effectSlider {
   writing-mode: vertical-lr;
   -webkit-appearance: slider-vertical; /* WebKit */
-  direction: rtl;
   grid-row: 2;
   align-self: center;
   justify-self: center;
@@ -300,26 +314,12 @@ html, body {
   box-shadow: 2px 1px 7px rgb(48, 47, 47);
 }
 
-#speedControl {
-  background: linear-gradient(to bottom, #f5deb3 48%, rgba(206, 149, 111, 0.822) 52%);
-}
-
-#gainControl {
-  background: linear-gradient(to bottom, #f5deb3 72%, rgba(206, 149, 111, 0.822) 76%);
-}
-
-#reverbControl {
-  background: linear-gradient(to bottom, #f5deb3 100%, rgba(206, 149, 111, 0.822) 100%);
-}
-
 .effectSlider::-webkit-slider-runnable-track {
-  writing-mode: vertical-lr;
-  direction: rtl;
+  direction: ltr;
 }
 
 .effectSlider::-moz-range-track {
-  writing-mode: vertical-lr;
-  direction: rtl;
+  direction: ltr;
 }
 
 /* Slider thumb (handle) styling */
@@ -333,6 +333,7 @@ html, body {
   cursor: pointer; /* Pointer cursor on hover */
   border: 4px solid #997b6e;
   border: 3px solid rgb(29, 29, 29);
+  box-sizing: content-box;
 }
 
 .effectSlider::-moz-range-thumb {
