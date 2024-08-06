@@ -595,9 +595,11 @@ footer a {
   html {
     height: 100%;
     width: 100%;
+    overflow: auto;
   }
   body {
     width: 100%;
+    overflow: auto;
   }
   .content h1 {
     font-size: 7vw;

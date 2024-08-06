@@ -830,6 +830,7 @@ footer a {
         width: 100%;
         // margin: 0;
         // padding: 0;
+        overflow: auto;
     }
     body {
         // width: 50%;
@@ -845,6 +846,7 @@ footer a {
         // padding: 3em 3em 3em 3em;
         // padding: 10%;
         // margin-top: 5em;
+        overflow: auto;
     }
     .content h1 {
         font-size: 7vw;
