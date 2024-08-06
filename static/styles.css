@@ -93,7 +93,6 @@ html, body {
   justify-content: flex-start;
   margin-top: 1em;
   flex-direction: column;
-  border: 2px solid red;
 }
 
 #reverseReverb {
@@ -201,7 +200,6 @@ html, body {
 .effects-class {
   display: grid;
   grid-template-rows: 12.5% 67.5% 20%;
-  border: 1px solid white;
   width: 30%;
   height: 100%;
   text-align: center;
@@ -212,7 +210,6 @@ html, body {
   grid-row: 1;
   align-self: center;
   line-height: 1.5em;
-  border: 1px solid green;
   white-space: nowrap;
   color: rgba(206, 149, 111, 0.822);
   font-size: 1.2em;
@@ -610,13 +607,19 @@ footer a {
     align-items: center;
     align-content: center;
     align-self: center;
-    height: 100%;
     width: 100%;
+    padding: 3em 3em 3em 3em;
   }
   .content h1 {
+    font-size: 7vw;
+    width: 100vw;
+    margin-left: 0.5em;
     text-align: center;
     white-space: wrap;
     text-wrap: wrap;
+    margin-top: 4%;
+    margin-top: 0;
+    padding-top: 0;
   }
   #fileUploadStyling.uploaded {
     margin: 0em 0.5em 0em 0em;
