@@ -812,11 +812,21 @@ footer a {
 }
 
 @media only screen and (max-width: 700px) and (orientation: portrait) {
+    html {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
     body {
         // width: 50%;
         justify-content: center;
         justify-items: center;
         justify-self: center;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
     }
     .content h1 {
         font-size: 7vw;
