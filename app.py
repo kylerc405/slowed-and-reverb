@@ -19,7 +19,7 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'default_secret_key')
 app.config['UPLOAD_FOLDER'] = '/tmp'
 
 # app.config['CUSTOM_TEMP_DIR'] = '/tmp'
-# app.config['CUSTOM_TEMP_DIR'] = 'C:/Users/kchen/AppData/Local/Temp'
+# app.config['UPLOAD_FOLDER'] = 'C:/Users/kchen/AppData/Local/Temp'
 # app.config['UPLOAD_FOLDER'] = 'uploads'
 
 
@@ -100,15 +100,20 @@ def uploaded():
     if temp_file_path and os.path.exists(temp_file_path):
         session.pop('audio_file', None)
         session.pop('song_name', None)
-        return render_template("index.html", form=form, audio_file = url_for('uploaded_file', filename=os.path.basename(temp_file_path)), song_name = song_name)
+        audio_file_url = url_for('uploaded_file', filename=os.path.basename(temp_file_path))
+        # print(f"Generated audio file URL: {audio_file_url}")
+        return render_template("index.html", form=form, audio_file = audio_file_url, song_name = song_name)
     
     return redirect(url_for('index'))
 
 
-@app.route('/uploads/<path:filename>')
+@app.route('/<path:filename>')
 def uploaded_file(filename): # runs when someone visits /uploads/<filename>
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+    # print(f"Serving file from uploads: {filename}")
+    return send_file(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    # return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
     # return send_file(filename)
+
 
     
 # def cleanup_temp_file():
@@ -133,6 +138,7 @@ if __name__ == "__main__":
     # with app.app_context():
     #     db.create_all()
     app.run(debug=False, host='0.0.0.0')
+    # app.run(debug=True)
 
 
 
