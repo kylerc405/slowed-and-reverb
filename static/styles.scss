@@ -29,17 +29,14 @@ body {
     padding: 0;
     font-family: 'Bocalupo', 'Bonbance', 'Poppins', sans-serif;
     box-sizing: border-box;
-    height: 100vh;
-    width: 100vw;
+    // height: 100vh;
+    // width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    // overflow: hidden;
-    // border: 2px solid green;
-    // text-transform: lowercase;
 }
-html, body {margin: 0; height: 100%; overflow: hidden}
+html, body {height: 100%; overflow: hidden}
 .content {
     margin: 0;
     padding: 0;
@@ -829,40 +826,44 @@ footer a {
     html {
         height: 100%;
         width: 100%;
-        margin: 0;
-        padding: 0;
+        // margin: 0;
+        // padding: 0;
     }
     body {
         // width: 50%;
+        display: flex;
         justify-content: center;
         justify-items: center;
         justify-self: center;
+        align-items: center;
+        align-content: center;
+        align-self: center;
         height: 100%;
         width: 100%;
-        margin: 0;
-        padding: 0;
+        // margin: 10%;
+        // padding: 10%;
     }
     .content h1 {
-        font-size: 7vw;
-        width: 100vw;
-        margin-left: 0.5em;
+        // font-size: 7vw;
+        // width: 100vw;
+        // margin-left: 0.5em;
         text-align: center;
         white-space: wrap;
         text-wrap: wrap;
         // margin-top: 4%;
-        margin-top: 0;
-        padding-top: 0;
+        // margin-top: 0;
+        // padding-top: 0;
     }
     .content.uploaded h1 {
-        font-size: 6vw;
-        width: 100vw;
-        white-space: wrap;
-        text-wrap: wrap;
-        margin: 0 0 0 0;
-        padding: 0 0 0 0;
-        margin-bottom: 3%;
-        margin-top: 4%;
-        // border: 2px solid white;
+        // font-size: 6vw;
+        // width: 100vw;
+        // white-space: wrap;
+        // text-wrap: wrap;
+        // margin: 0 0 0 0;
+        // padding: 0 0 0 0;
+        // margin-bottom: 3%;
+        // margin-top: 4%;
+        // // border: 2px solid white;
     }
 
     #fileUploadStyling.uploaded {
