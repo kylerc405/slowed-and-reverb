@@ -16,6 +16,7 @@ import os
 app = Flask(__name__)
 Scss(app)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'default_secret_key')
+app.config['UPLOAD_FOLDER'] = '/tmp'
 
 # app.config['CUSTOM_TEMP_DIR'] = '/tmp'
 # app.config['CUSTOM_TEMP_DIR'] = 'C:/Users/kchen/AppData/Local/Temp'
@@ -38,13 +39,25 @@ def index():
         filename = None
         
         #temp file method
-        with NamedTemporaryFile(delete=False, suffix=".wav") as temp_file:
-            filename = secure_filename(file.filename)
+        # with NamedTemporaryFile(delete=False, suffix=".wav") as temp_file:
+        #     filename = secure_filename(file.filename)
+        #     temp_file.write(file.read())
+        #     temp_file_path = temp_file.name
+        # session['audio_file'] = temp_file_path
+        # session['song_name'] = filename
+        # return redirect(url_for('uploaded'))
+    
+    
+        #temp file method 2
+        filename = secure_filename(file.filename)
+        temp_file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        with open(temp_file_path, 'wb') as temp_file:
             temp_file.write(file.read())
-            temp_file_path = temp_file.name
         session['audio_file'] = temp_file_path
         session['song_name'] = filename
         return redirect(url_for('uploaded'))
+    
+        
             
 
     return render_template("index.html", form=form, audio_file="static/temp.wav", song_name = " ") # change audio_file to None for different homepage
@@ -63,31 +76,39 @@ def uploaded():
         
         # cleanup_temp_file()
         #temp file method
-        with NamedTemporaryFile(delete=False, suffix=".wav") as temp_file:
-            filename = secure_filename(file.filename)
+        # with NamedTemporaryFile(delete=False, suffix=".wav") as temp_file:
+        #     filename = secure_filename(file.filename)
+        #     temp_file.write(file.read())
+        #     temp_file_path = temp_file.name
+        # session['audio_file'] = temp_file_path
+        # session['song_name'] = filename
+        # return redirect(url_for('uploaded'))
+    
+    
+        #temp file method 2
+        filename = secure_filename(file.filename)
+        temp_file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        with open(temp_file_path, 'wb') as temp_file:
             temp_file.write(file.read())
-            temp_file_path = temp_file.name
         session['audio_file'] = temp_file_path
         session['song_name'] = filename
         return redirect(url_for('uploaded'))
     
     
-    
-    
     temp_file_path = session.get('audio_file')
     song_name = session.get('song_name')
     if temp_file_path and os.path.exists(temp_file_path):
-        # session.pop('audio_file', None)
-        # session.pop('song_name', None)
-        return render_template("index.html", form=UploadFileForm(), audio_file = temp_file_path, song_name = song_name)
+        session.pop('audio_file', None)
+        session.pop('song_name', None)
+        return render_template("index.html", form=form, audio_file = url_for('uploaded_file', filename=os.path.basename(temp_file_path)), song_name = song_name)
     
     return redirect(url_for('index'))
 
 
 @app.route('/uploads/<path:filename>')
 def uploaded_file(filename): # runs when someone visits /uploads/<filename>
-    # return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-    return send_file(filename)
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+    # return send_file(filename)
 
     
 # def cleanup_temp_file():
