@@ -30,7 +30,6 @@ html, body {
 .content {
   margin: 0;
   padding: 0;
-  height: 95%;
   width: 80%;
   display: flex;
   justify-content: center;
@@ -40,7 +39,6 @@ html, body {
 
 .content.uploaded {
   margin: 0;
-  height: 95vh;
   width: 80%;
   display: block;
   display: grid;
@@ -599,15 +597,7 @@ footer a {
     width: 100%;
   }
   body {
-    display: flex;
-    justify-content: center;
-    justify-items: center;
-    justify-self: center;
-    align-items: center;
-    align-content: center;
-    align-self: center;
     width: 100%;
-    padding: 3em 3em 3em 3em;
   }
   .content h1 {
     font-size: 7vw;
@@ -616,9 +606,6 @@ footer a {
     text-align: center;
     white-space: wrap;
     text-wrap: wrap;
-    margin-top: 4%;
-    margin-top: 0;
-    padding-top: 0;
   }
   #fileUploadStyling.uploaded {
     margin: 0em 0.5em 0em 0em;

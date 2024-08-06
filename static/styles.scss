@@ -42,7 +42,7 @@ html, body {height: 100%;
 .content {
     margin: 0;
     padding: 0;
-    height: 95%;
+    // height: 95%;z
     width: 80%;
     
     display: flex;
@@ -60,7 +60,7 @@ html, body {height: 100%;
 .content.uploaded {
     margin: 0;
     
-    height: 95vh;
+    // height: 95vh;
     width: 80%;
     // border: 2px solid green;
     display: block;
@@ -833,16 +833,16 @@ footer a {
     }
     body {
         // width: 50%;
-        display: flex;
-        justify-content: center;
-        justify-items: center;
-        justify-self: center;
-        align-items: center;
-        align-content: center;
-        align-self: center;
+        // display: flex;
+        // justify-content: center;
+        // justify-items: center;
+        // justify-self: center;
+        // align-items: center;
+        // align-content: center;
+        // align-self: center;
         // height: 80%;
         width: 100%;
-        padding: 3em 3em 3em 3em;
+        // padding: 3em 3em 3em 3em;
         // padding: 10%;
         // margin-top: 5em;
     }
@@ -853,9 +853,9 @@ footer a {
         text-align: center;
         white-space: wrap;
         text-wrap: wrap;
-        margin-top: 4%;
-        margin-top: 0;
-        padding-top: 0;
+        // margin-top: 4%;
+        // margin-top: 0;
+        // padding-top: 0;
     }
     .content.uploaded h1 {
         // font-size: 6vw;
