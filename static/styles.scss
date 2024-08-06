@@ -412,7 +412,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     // min-width: 1.2em; /* Full width */
     // height: 100%; /* Track height */
 
-    // width: 25em;
+    width: 40vh;
 
     border-radius: 10px; /* Rounded corners */
     outline: none; /* Remove outline */
@@ -739,8 +739,8 @@ footer a {
         width: 50%;
     }
     .effectSlider {
-        height: 75%; /* Track height */
-        margin-top: -1.7em;
+        // height: 75%; /* Track height */
+        // margin-top: -1.7em;
     }
     #resetReverb {
         padding: 0.35em 0.17em 0.12em 0.3em;
@@ -1003,8 +1003,8 @@ footer a {
         font-size: (5vh, 0.9em, 8vh);
     }
     .effectSlider {
-        width: 1vmax;
-        min-width: 1em; /* Full width */
+        // width: 1vmax;
+        // min-width: 1em; /* Full width */
     }
     .effectSlider::-webkit-slider-thumb {
         width: 3em; /* Thumb width */
