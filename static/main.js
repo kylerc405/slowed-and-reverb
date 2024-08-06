@@ -446,47 +446,49 @@ import { visualizeAudio } from "./visualizer.js";
 
     // stop mobile landscape slider weirdness 
     //reverb
-    reverbControl.addEventListener('touchstart', () => {
-        document.body.style.overflow = 'hidden'; // Disable scrolling
-    });
+    // reverbControl.addEventListener('touchstart', () => {
+    //     document.body.style.overflow = 'hidden'; // Disable scrolling
+    // });
 
-    reverbControl.addEventListener('touchend', () => {
-        document.body.style.overflow = 'scroll'; // Enable scrolling
-    });
-    reverbControl.addEventListener('touchmove', (event) => {
-        // Allow slider to be moved by touch without scrolling the page
-        if (event.target === reverbControl) {
-            event.stopPropagation();
-        }
-    }, { passive: false });
-    //gain
-    gainControl.addEventListener('touchstart', () => {
-        document.body.style.overflow = 'hidden'; // Disable scrolling
-    });
+    // reverbControl.addEventListener('touchend', () => {
+    //     document.body.style.overflow = 'scroll'; // Enable scrolling
+    // });
+    // reverbControl.addEventListener('touchmove', (event) => {
+    //     // Allow slider to be moved by touch without scrolling the page
+    //     if (event.target === reverbControl) {
+    //         event.stopPropagation();
+    //     }
+    // }, { passive: false });
 
-    gainControl.addEventListener('touchend', () => {
-        document.body.style.overflow = 'scroll'; // Enable scrolling
-    });
-    gainControl.addEventListener('touchmove', (event) => {
-        // Allow slider to be moved by touch without scrolling the page
-        if (event.target === gainControl) {
-            event.stopPropagation();
-        }
-    }, { passive: false });
-    //pitch
-    speedControl.addEventListener('touchstart', () => {
-        document.body.style.overflow = 'hidden'; // Disable scrolling
-    });
 
-    speedControl.addEventListener('touchend', () => {
-        document.body.style.overflow = 'scroll'; // Enable scrolling
-    });
-    speedControl.addEventListener('touchmove', (event) => {
-        // Allow slider to be moved by touch without scrolling the page
-        if (event.target === speedControl) {
-            event.stopPropagation();
-        }
-    }, { passive: false });
+    // //gain
+    // gainControl.addEventListener('touchstart', () => {
+    //     document.body.style.overflow = 'hidden'; // Disable scrolling
+    // });
+
+    // gainControl.addEventListener('touchend', () => {
+    //     document.body.style.overflow = 'scroll'; // Enable scrolling
+    // });
+    // gainControl.addEventListener('touchmove', (event) => {
+    //     // Allow slider to be moved by touch without scrolling the page
+    //     if (event.target === gainControl) {
+    //         event.stopPropagation();
+    //     }
+    // }, { passive: false });
+    // //pitch
+    // speedControl.addEventListener('touchstart', () => {
+    //     document.body.style.overflow = 'hidden'; // Disable scrolling
+    // });
+
+    // speedControl.addEventListener('touchend', () => {
+    //     document.body.style.overflow = 'scroll'; // Enable scrolling
+    // });
+    // speedControl.addEventListener('touchmove', (event) => {
+    //     // Allow slider to be moved by touch without scrolling the page
+    //     if (event.target === speedControl) {
+    //         event.stopPropagation();
+    //     }
+    // }, { passive: false });
 
 
 
