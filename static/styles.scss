@@ -162,74 +162,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     
     
 }
-#resetReverb {
-    // margin-top: 0.2em;
-    // margin-bottom: 1.4em;
-    // padding-bottom: 1em;
-    // height: auto;
-    cursor: pointer;
-    // font-weight: 600;
-    // border: 3px solid $secondary-text;
-    border: 2px solid rgb(190, 190, 190);
-    border-radius: 50px;
-    padding: 0.6em 0.3em 0.3em 0.4em;
-    // margin-top: 1em;
-    margin: 0;
-    transition: all 0.2s ease-in-out;
-    // margin: 1em 1.7em 0em 1.7em;
-    box-shadow: 1px 2px 6px rgb(17, 17, 17);
 
-    // border:  3px solid rgba(190, 190, 190, 0);
-    color:  rgb(190, 190, 190);
-    background: rgba(46, 51, 63, 0.705);
-}
-#resetReverb:hover {
-    // border:  3px solid $background;
-    color: $background;
-    background: rgb(190, 190, 190);
-    // box-shadow: 0px 0px 4px $main-text;
-    // border: 3px solid rgb(190, 190, 190);
-
-
-    color: $background;
-    background: rgb(190, 190, 190);
-}
-.resetBtn {
-
-
-    // color:  $secondary-text;
-    // color:  rgba(255, 255, 255, 0.671);
-    // background: #997b6e;
-    // background: rgb(46, 46, 46);
-    // width: 50%;
-    height: auto;
-    cursor: pointer;
-    // font-weight: 600;
-    // border: 3px solid $secondary-text;
-    border: 2px solid rgb(190, 190, 190);
-
-    border-radius: 50px;
-    padding: 0.6em 0.3em 0.3em 0.4em;
-    margin: 0;
-    transition: all 0.2s ease-in-out;
-    // margin: 1em 1.7em 0em 1.7em;
-    box-shadow: 1px 2px 6px rgb(17, 17, 17);
-
-    // border:  3px solid rgba(190, 190, 190, 0);
-    color:  rgb(190, 190, 190);
-    background: rgba(46, 51, 63, 0.705);
-}
-.resetBtn:hover {
-    // border:  3px solid $background;
-    color: $background;
-    background: rgb(190, 190, 190);
-    // box-shadow: 0px 0px 4px $main-text;
-    // border: 3px solid rgb(190, 190, 190);
-
-
-    color: $background;
-    background: rgb(190, 190, 190);
-}
 
 
 #fileUploadStyling {
@@ -356,6 +289,8 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     color: $secondary-text;
     // text-shadow: 2px 0px 5px rgb(41, 35, 30);
     font-size: 1.2em;
+    // position: relative;
+    padding: 0 0.5em;
 }
 .effects-text label {
     // text-shadow: 0px 0px 3px rgba(241, 243, 223, 0.801);
@@ -393,6 +328,87 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     background: linear-gradient(to left, $main-text 100%, $secondary-text 100%);
 }
 
+
+#resetReverb {
+    // margin-top: 0.2em;
+    // margin-bottom: 1.4em;
+    // padding-bottom: 1em;
+    // height: auto;
+    cursor: pointer;
+    // font-weight: 600;
+    // border: 3px solid $secondary-text;
+    border: 2px solid rgb(190, 190, 190);
+    border-radius: 50px;
+    padding: 0.6em 0.3em 0.3em 0.4em;
+    // margin-top: 1em;
+    margin: 0;
+    transition: all 0.2s ease-in-out;
+    // margin: 1em 1.7em 0em 1.7em;
+    box-shadow: 1px 2px 6px rgb(17, 17, 17);
+
+    // border:  3px solid rgba(190, 190, 190, 0);
+    color:  rgb(190, 190, 190);
+    background: rgba(46, 51, 63, 0.705);
+    // width: 100%;
+}
+#resetReverb:hover {
+    // border:  3px solid $background;
+    color: $background;
+    background: rgb(190, 190, 190);
+    // box-shadow: 0px 0px 4px $main-text;
+    // border: 3px solid rgb(190, 190, 190);
+
+
+    color: $background;
+    background: rgb(190, 190, 190);
+}
+.resetBtn {
+
+
+    // color:  $secondary-text;
+    // color:  rgba(255, 255, 255, 0.671);
+    // background: #997b6e;
+    // background: rgb(46, 46, 46);
+    // width: 50%;
+    height: auto;
+    cursor: pointer;
+    // font-weight: 600;
+    // border: 3px solid $secondary-text;
+    border: 2px solid rgb(190, 190, 190);
+
+    border-radius: 50px;
+    padding: 0.6em 0.3em 0.3em 0.4em;
+    margin: 0;
+    transition: all 0.2s ease-in-out;
+    // margin: 1em 1.7em 0em 1.7em;
+    box-shadow: 1px 2px 6px rgb(17, 17, 17);
+
+    // border:  3px solid rgba(190, 190, 190, 0);
+    color:  rgb(190, 190, 190);
+    background: rgba(46, 51, 63, 0.705);
+}
+.resetBtn:hover {
+    // border:  3px solid $background;
+    color: $background;
+    background: rgb(190, 190, 190);
+    // box-shadow: 0px 0px 4px $main-text;
+    // border: 3px solid rgb(190, 190, 190);
+
+
+    color: $background;
+    background: rgb(190, 190, 190);
+}
+
+.effectSliderWrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
 .effectSlider {
         //delete
     // writing-mode: vertical-lr;
@@ -413,6 +429,9 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     // height: 100%; /* Track height */
 
     width: 40vh;
+    height: 2vh;
+    transform-origin: center;
+    position: absolute;
 
     border-radius: 10px; /* Rounded corners */
     outline: none; /* Remove outline */
@@ -435,8 +454,8 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 .effectSlider::-webkit-slider-thumb {
     -webkit-appearance: none; /* Remove default styling for WebKit browsers */
     appearance: none; /* Remove default styling for other browsers */
-    width: 3.5em; /* Thumb width */
-    height: 1.5em; /* Thumb height */
+    width: 1.5em; /* Thumb width */
+    height: 3.5em; /* Thumb height */
     background: rgb(46, 46, 46); /* Thumb color */
     // background: white;
     
@@ -446,11 +465,11 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     border: 3px solid rgb(29, 29, 29); 
     // margin-top: -0.5em;
     // box-shadow: 0px 1px 2px rgb(156, 156, 156);
-    box-sizing: content-box;
+
 }
 .effectSlider::-moz-range-thumb {
-    width: 3.5em; /* Thumb width */
-    height: 1.5em; /* Thumb height */
+    width: 1.5em; /* Thumb width */
+    height: 3.5em; /* Thumb height */
     background: rgb(46, 46, 46); /* Thumb color */
     // background: white;
     
@@ -1007,13 +1026,13 @@ footer a {
         // min-width: 1em; /* Full width */
     }
     .effectSlider::-webkit-slider-thumb {
-        width: 3em; /* Thumb width */
-        height: 1em; /* Thumb height */
+        width: 1.3em; /* Thumb width */
+        height: 3em; /* Thumb height */
     }
     
     .effectSlider::-moz-range-thumb {
-        width: 3em; /* Thumb width */
-        height: 1em; /* Thumb height */
+        width: 1.3em; /* Thumb width */
+        height: 3em; /* Thumb height */
     }
     
     #time-outer-div {

@@ -113,45 +113,6 @@ html, body {
   white-space: nowrap;
 }
 
-#resetReverb {
-  cursor: pointer;
-  border: 2px solid rgb(190, 190, 190);
-  border-radius: 50px;
-  padding: 0.6em 0.3em 0.3em 0.4em;
-  margin: 0;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 1px 2px 6px rgb(17, 17, 17);
-  color: rgb(190, 190, 190);
-  background: rgba(46, 51, 63, 0.705);
-}
-
-#resetReverb:hover {
-  color: rgba(54, 76, 116, 0.856);
-  background: rgb(190, 190, 190);
-  color: rgba(54, 76, 116, 0.856);
-  background: rgb(190, 190, 190);
-}
-
-.resetBtn {
-  height: auto;
-  cursor: pointer;
-  border: 2px solid rgb(190, 190, 190);
-  border-radius: 50px;
-  padding: 0.6em 0.3em 0.3em 0.4em;
-  margin: 0;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 1px 2px 6px rgb(17, 17, 17);
-  color: rgb(190, 190, 190);
-  background: rgba(46, 51, 63, 0.705);
-}
-
-.resetBtn:hover {
-  color: rgba(54, 76, 116, 0.856);
-  background: rgb(190, 190, 190);
-  color: rgba(54, 76, 116, 0.856);
-  background: rgb(190, 190, 190);
-}
-
 #fileUploadStyling {
   display: inline-flex;
   color: rgba(206, 149, 111, 0.822);
@@ -258,6 +219,7 @@ html, body {
   white-space: nowrap;
   color: rgba(206, 149, 111, 0.822);
   font-size: 1.2em;
+  padding: 0 0.5em;
 }
 
 .effects-text label {
@@ -295,6 +257,54 @@ html, body {
   background: linear-gradient(to left, #f5deb3 100%, rgba(206, 149, 111, 0.822) 100%);
 }
 
+#resetReverb {
+  cursor: pointer;
+  border: 2px solid rgb(190, 190, 190);
+  border-radius: 50px;
+  padding: 0.6em 0.3em 0.3em 0.4em;
+  margin: 0;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 1px 2px 6px rgb(17, 17, 17);
+  color: rgb(190, 190, 190);
+  background: rgba(46, 51, 63, 0.705);
+}
+
+#resetReverb:hover {
+  color: rgba(54, 76, 116, 0.856);
+  background: rgb(190, 190, 190);
+  color: rgba(54, 76, 116, 0.856);
+  background: rgb(190, 190, 190);
+}
+
+.resetBtn {
+  height: auto;
+  cursor: pointer;
+  border: 2px solid rgb(190, 190, 190);
+  border-radius: 50px;
+  padding: 0.6em 0.3em 0.3em 0.4em;
+  margin: 0;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 1px 2px 6px rgb(17, 17, 17);
+  color: rgb(190, 190, 190);
+  background: rgba(46, 51, 63, 0.705);
+}
+
+.resetBtn:hover {
+  color: rgba(54, 76, 116, 0.856);
+  background: rgb(190, 190, 190);
+  color: rgba(54, 76, 116, 0.856);
+  background: rgb(190, 190, 190);
+}
+
+.effectSliderWrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .effectSlider {
   transform: rotate(-90deg);
   grid-row: 2;
@@ -304,6 +314,9 @@ html, body {
   -moz-appearance: none;
        appearance: none; /* Remove default styling for other browsers */
   width: 40vh;
+  height: 2vh;
+  transform-origin: center;
+  position: absolute;
   border-radius: 10px; /* Rounded corners */
   outline: none; /* Remove outline */
   cursor: pointer; /* Pointer cursor on hover */
@@ -315,19 +328,18 @@ html, body {
 .effectSlider::-webkit-slider-thumb {
   -webkit-appearance: none; /* Remove default styling for WebKit browsers */
   appearance: none; /* Remove default styling for other browsers */
-  width: 3.5em; /* Thumb width */
-  height: 1.5em; /* Thumb height */
+  width: 1.5em; /* Thumb width */
+  height: 3.5em; /* Thumb height */
   background: rgb(46, 46, 46); /* Thumb color */
   border-radius: 5px; /* Round thumb */
   cursor: pointer; /* Pointer cursor on hover */
   border: 4px solid #997b6e;
   border: 3px solid rgb(29, 29, 29);
-  box-sizing: content-box;
 }
 
 .effectSlider::-moz-range-thumb {
-  width: 3.5em; /* Thumb width */
-  height: 1.5em; /* Thumb height */
+  width: 1.5em; /* Thumb width */
+  height: 3.5em; /* Thumb height */
   background: rgb(46, 46, 46); /* Thumb color */
   border-radius: 5px; /* Round thumb */
   cursor: pointer; /* Pointer cursor on hover */
@@ -734,12 +746,12 @@ footer a {
     font-size: 5vh, 0.9em, 8vh;
   }
   .effectSlider::-webkit-slider-thumb {
-    width: 3em; /* Thumb width */
-    height: 1em; /* Thumb height */
+    width: 1.3em; /* Thumb width */
+    height: 3em; /* Thumb height */
   }
   .effectSlider::-moz-range-thumb {
-    width: 3em; /* Thumb width */
-    height: 1em; /* Thumb height */
+    width: 1.3em; /* Thumb width */
+    height: 3em; /* Thumb height */
   }
   #time-outer-div {
     display: flex;

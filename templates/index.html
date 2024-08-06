@@ -89,8 +89,9 @@
                         <span id="speedValue">1.00</span><span id="units">x /  </span>
                         <span id="transposeValue">0</span><span id="units"> st</span>
                     </div>
-
-                    <input class="effectSlider" type="range" id="speedControl" min="-12" max="12" step="1" value="0">
+                    <div class="effectSliderWrap">
+                        <input class="effectSlider" type="range" id="speedControl" min="-12" max="12" step="1" value="0">
+                    </div>
 
                     <div class="div-buttons">
                         <label class="resetBtn" id="resetSpeed">RESET</label>
@@ -107,8 +108,9 @@
                         <span id="reverbValue">0</span>%
                     </div>
 
-                    <input class="effectSlider" type="range" id="reverbControl" min="0" max="1" step="0.01" value="0">
-
+                    <div class="effectSliderWrap">
+                        <input class="effectSlider" type="range" id="reverbControl" min="0" max="1" step="0.01" value="0">
+                    </div>
 
                     <div class="div-buttons">
                         <label id="resetReverb">RESET</label>
@@ -130,7 +132,9 @@
                     </div>
 
                     <!-- <div class="slider-div"> -->
-                        <input class="effectSlider" type="range" id="gainControl" min="0" max="4" value="1" step="0.01"/>
+                        <div class="effectSliderWrap">
+                            <input class="effectSlider" type="range" id="gainControl" min="0" max="4" value="1" step="0.01"/>
+                        </div>
                     
                     
                     <div class="div-buttons">
