@@ -395,22 +395,24 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 .effectSlider {
         //delete
-    writing-mode: vertical-lr;
+    // writing-mode: vertical-lr;
     // -webkit-appearance: slider-vertical; /* WebKit */
     // direction: ltr;
         //add
-    // transform: rotate(-90deg);
+    transform: rotate(-90deg);
     grid-row: 2;
-    // align-self: center;
+    align-self: center;
     justify-self: center;
     -webkit-appearance: none; /* Remove default styling for WebKit browsers */
     appearance: none; /* Remove default styling for other browsers */
 
 
         //delete 
-    width: 1vmax;
-    min-width: 1.2em; /* Full width */
-    height: 100%; /* Track height */
+    // width: 1vmax;
+    // min-width: 1.2em; /* Full width */
+    // height: 100%; /* Track height */
+
+    width: 40vh;
 
     border-radius: 10px; /* Rounded corners */
     outline: none; /* Remove outline */
@@ -422,12 +424,12 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 .effectSlider::-webkit-slider-runnable-track {
     // writing-mode: vertical-lr;
-    direction: ltr;
+    // direction: ltr;
 
 }
 .effectSlider::-moz-range-track {
     // writing-mode: vertical-lr;
-    direction: ltr;
+    // direction: ltr;
 }
 /* Slider thumb (handle) styling */
 .effectSlider::-webkit-slider-thumb {

@@ -296,28 +296,19 @@ html, body {
 }
 
 .effectSlider {
-  writing-mode: vertical-lr;
+  transform: rotate(-90deg);
   grid-row: 2;
+  align-self: center;
   justify-self: center;
   -webkit-appearance: none; /* Remove default styling for WebKit browsers */
   -moz-appearance: none;
        appearance: none; /* Remove default styling for other browsers */
-  width: 1vmax;
-  min-width: 1.2em; /* Full width */
-  height: 100%; /* Track height */
+  width: 40vh;
   border-radius: 10px; /* Rounded corners */
   outline: none; /* Remove outline */
   cursor: pointer; /* Pointer cursor on hover */
   border: 3px solid rgb(46, 46, 46);
   box-shadow: 2px 1px 7px rgb(48, 47, 47);
-}
-
-.effectSlider::-webkit-slider-runnable-track {
-  direction: ltr;
-}
-
-.effectSlider::-moz-range-track {
-  direction: ltr;
 }
 
 /* Slider thumb (handle) styling */
