@@ -297,9 +297,7 @@ html, body {
 
 .effectSlider {
   writing-mode: vertical-lr;
-  -webkit-appearance: slider-vertical; /* WebKit */
   grid-row: 2;
-  align-self: center;
   justify-self: center;
   -webkit-appearance: none; /* Remove default styling for WebKit browsers */
   -moz-appearance: none;

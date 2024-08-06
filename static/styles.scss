@@ -396,12 +396,12 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 .effectSlider {
         //delete
     writing-mode: vertical-lr;
-    -webkit-appearance: slider-vertical; /* WebKit */
+    // -webkit-appearance: slider-vertical; /* WebKit */
     // direction: ltr;
         //add
     // transform: rotate(-90deg);
     grid-row: 2;
-    align-self: center;
+    // align-self: center;
     justify-self: center;
     -webkit-appearance: none; /* Remove default styling for WebKit browsers */
     appearance: none; /* Remove default styling for other browsers */
