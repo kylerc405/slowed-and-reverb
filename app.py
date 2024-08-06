@@ -77,8 +77,8 @@ def uploaded():
     temp_file_path = session.get('audio_file')
     song_name = session.get('song_name')
     if temp_file_path and os.path.exists(temp_file_path):
-        session.pop('audio_file', None)
-        session.pop('song_name', None)
+        # session.pop('audio_file', None)
+        # session.pop('song_name', None)
         return render_template("index.html", form=UploadFileForm(), audio_file = temp_file_path, song_name = song_name)
     
     return redirect(url_for('index'))
