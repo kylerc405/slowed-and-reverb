@@ -15,10 +15,10 @@ import os
 
 app = Flask(__name__)
 Scss(app)
-app.config['SECRET_KEY'] = 'monkey'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'default_secret_key')
 
 # app.config['CUSTOM_TEMP_DIR'] = '/tmp'
-app.config['CUSTOM_TEMP_DIR'] = 'C:/Users/kchen/AppData/Local/Temp'
+# app.config['CUSTOM_TEMP_DIR'] = 'C:/Users/kchen/AppData/Local/Temp'
 # app.config['UPLOAD_FOLDER'] = 'uploads'
 
 
@@ -38,7 +38,7 @@ def index():
         filename = None
         
         #temp file method
-        with NamedTemporaryFile(delete=False, suffix=".wav", dir=app.config['CUSTOM_TEMP_DIR']) as temp_file:
+        with NamedTemporaryFile(delete=False, suffix=".wav") as temp_file:
             filename = secure_filename(file.filename)
             temp_file.write(file.read())
             temp_file_path = temp_file.name
@@ -63,7 +63,7 @@ def uploaded():
         
         # cleanup_temp_file()
         #temp file method
-        with NamedTemporaryFile(delete=False, suffix=".wav", dir=app.config['CUSTOM_TEMP_DIR']) as temp_file:
+        with NamedTemporaryFile(delete=False, suffix=".wav") as temp_file:
             filename = secure_filename(file.filename)
             temp_file.write(file.read())
             temp_file_path = temp_file.name
@@ -111,7 +111,7 @@ def uploaded_file(filename): # runs when someone visits /uploads/<filename>
 if __name__ == "__main__":
     # with app.app_context():
     #     db.create_all()
-    app.run(debug=True)
+    app.run(debug=False, host='0.0.0.0')
 
 
 
