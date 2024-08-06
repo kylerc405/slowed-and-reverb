@@ -303,7 +303,7 @@ html, body {
   -webkit-appearance: none; /* Remove default styling for WebKit browsers */
   -moz-appearance: none;
        appearance: none; /* Remove default styling for other browsers */
-  width: 40vh;
+  width: 25em;
   border-radius: 10px; /* Rounded corners */
   outline: none; /* Remove outline */
   cursor: pointer; /* Pointer cursor on hover */
