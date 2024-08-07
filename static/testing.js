@@ -22,15 +22,15 @@ import { visualizeAudio } from "./visualizer.js";
     const background = document.body;
 
     let sourceNode;
+    let mainAudioBuffer = null;
     async function fetchAudioBuffer(url, audioContext) {
         try {
-            console.log("awaiting fetch");
             const response = await fetch(url);
-            console.log("awaiting array buffer creation");
+            console.log("fetched audio data...");
             const arrayBuffer = await response.arrayBuffer();
-            console.log("awaiting audio buffer creation");
+            console.log("created array buffer...");
             const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-            console.log("Audio buffer fetched and decoded successfully.");
+            console.log("created audio buffer...");
             background.style.backgroundColor = "green";
             return audioBuffer;
         }
@@ -40,7 +40,7 @@ import { visualizeAudio } from "./visualizer.js";
         }
 
     }
-    let mainAudioBuffer = null;
+
     async function loadAudioBuffer() {
         try {
             mainAudioBuffer = await fetchAudioBuffer(audioElement.src, audioContext);
@@ -52,19 +52,18 @@ import { visualizeAudio } from "./visualizer.js";
 
     function setupSourceNode() {
         // const audioBuffer = await fetchAudioBuffer(audioElement.src, audioContext);
+        if (!mainAudioBuffer) {
+            console.error("tried to set up source node before audio buffer loaded");
+            return;
+        }
         if (sourceNode) {
             sourceNode.disconnect();
             console.log("Previous source node disconnected.");
         }
         sourceNode = audioContext.createBufferSource();
-        if (mainAudioBuffer) {
-            sourceNode.buffer = mainAudioBuffer;
-            console.log("Source node buffer set to mainAudioBuffer.");
-        }
-        else {
-            console.error("audio buffer not loaded");
-            return;
-        }
+        sourceNode.buffer = mainAudioBuffer;
+        console.log("Source node buffer set to mainAudioBuffer.");
+
 
         // sourceNode.playbackRate.value = audioElement.playbackRate;
         sourceNode.connect(gainNode);
