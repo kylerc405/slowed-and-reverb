@@ -442,15 +442,15 @@ body {
     // transform-origin: left bottom; /* Adjust origin to keep the slider in place */
 }
 
-.effectSlider::-webkit-slider-runnable-track {
-    // writing-mode: vertical-lr;
-    // direction: ltr;
+// .effectSlider::-webkit-slider-runnable-track {
+//     // writing-mode: vertical-lr;
+//     // direction: ltr;
 
-}
-.effectSlider::-moz-range-track {
-    // writing-mode: vertical-lr;
-    // direction: ltr;
-}
+// }
+// .effectSlider::-moz-range-track {
+//     // writing-mode: vertical-lr;
+//     // direction: ltr;
+// }
 /* Slider thumb (handle) styling */
 .effectSlider::-webkit-slider-thumb {
     -webkit-appearance: none; /* Remove default styling for WebKit browsers */

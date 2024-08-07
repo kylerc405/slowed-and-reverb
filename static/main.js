@@ -328,6 +328,8 @@ import { visualizeAudio } from "./visualizer.js";
     // source.connect(pitchNode)
 
     audioElement.preservesPitch = false;
+    audioElement.mozPreservesPitch = false;
+    audioElement.webkitPreservesPitch = false;
     audioElement.playbackRate = 1;
 
     function shift_factor(semitones) {
@@ -336,8 +338,9 @@ import { visualizeAudio } from "./visualizer.js";
     }
 
     speedControl.addEventListener("input", () => {
-        audioElement.playbackRate = shift_factor(speedControl.value);
-        speedValue.textContent = shift_factor(speedControl.value).toFixed(2);
+        const factor = shift_factor(speedControl.value);
+        audioElement.playbackRate = factor;
+        speedValue.textContent = factor.toFixed(2);
         if (speedControl.value > 0) {
             transposeValue.textContent = "+" + speedControl.value;
         }
