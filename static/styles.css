@@ -21,15 +21,19 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
+  height: 100vh;
+  width: 100vw;
 }
 
 html, body {
   height: 100%;
+  overflow: hidden;
 }
 
 .content {
   margin: 0;
   padding: 0;
+  height: 95%;
   width: 80%;
   display: flex;
   justify-content: center;
@@ -39,6 +43,7 @@ html, body {
 
 .content.uploaded {
   margin: 0;
+  height: 95%;
   width: 80%;
   display: block;
   display: grid;
@@ -598,8 +603,23 @@ footer a {
     overflow: auto;
   }
   body {
-    width: 100%;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    justify-self: center;
+    align-items: center;
+    align-content: center;
+    align-self: center;
     overflow: auto;
+  }
+  .content, .content.uploaded {
+    margin: 0;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    justify-self: center;
   }
   .content h1 {
     font-size: 7vw;
