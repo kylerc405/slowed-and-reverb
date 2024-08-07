@@ -722,16 +722,16 @@ footer a {
 
 @media only screen and (max-height: 650px) and (orientation: landscape) {
     html {
-        height: 135%;
+        height: 100%;
         width: 100%;
         // margin: 0;
         // padding: 0;
-        overflow:auto;
+        overflow:hidden;
         overflow-x: hidden;
     }
     body.uploaded {
-        height: 100%;
-        overflow: hidden;
+        height: 135%;
+        overflow: auto;
         width: 100%;
         margin: 0;
         padding: 0;
@@ -749,17 +749,18 @@ footer a {
         margin-top: 3em;
         padding-top: 1em;
         // border: 2px solid red;
+        margin-bottom: 1em;
     }
     #downloadBtn {
         padding: 0.5em;
         padding-left: 0.9em;
-        padding-top: 0.7em;
+        padding-top: 0.5em;
         margin-top: -0.5em;
     }
     #fileUploadStyling.uploaded {
         padding: 0.5em;
         padding-left: 1em;
-        padding-top: 0.7em;
+        padding-top: 0.5em;
         margin-top: -0.5em;
     }
     .content h1 {
@@ -804,7 +805,7 @@ footer a {
         justify-content: center;
         justify-items: center;
         justify-self: center;
-        margin-top: -6%;
+        margin-top: -10%;
     }
     #visualizerCanvas {
         // border: 2px solid white;
@@ -821,8 +822,8 @@ footer a {
         justify-content: center;
         justify-self: center;
         margin-left: 1em;
-        margin-bottom: 1em;
-        margin-top: 3em;
+        margin-bottom: -4em;
+        margin-top: 5em;
     }
     #time-outer-div {
         // border: 2px solid white;
