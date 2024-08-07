@@ -38,9 +38,9 @@ body {
     height: 100vh;
     width: 100vw;
 }
-html, body {height: 100%; 
-    overflow: hidden
-    }
+// html, body {height: 100%; 
+//     overflow: hidden
+//     }
 .content {
     margin: 0;
     padding: 0;
@@ -576,7 +576,7 @@ html, body {height: 100%;
 
 .playpause {
     // border: 1px solid white;
-    position: absolute;
+    // position: absolute;
     left: 0;
     right: 1.2em;
     display: flex;
@@ -827,12 +827,14 @@ footer a {
 }
 
 @media only screen and (max-width: 700px) and (orientation: portrait) {
+
     html {
         height: 100%;
         width: 100%;
         // margin: 0;
         // padding: 0;
-        overflow: auto;
+        overflow:hidden;
+        overflow-x: hidden;
     }
     body {
         // width: 50%;
@@ -843,20 +845,25 @@ footer a {
         align-items: center;
         align-content: center;
         align-self: center;
-        // height: 80%;
-        // width: 100%;
+        height: 100%;
+        width: 100%;
         // padding: 3em 3em 3em 3em;
         // padding: 10%;
         // margin-top: 5em;
         overflow: auto;
+        margin: 0;
+        padding: 0;
+        overflow:hidden;
+        overflow-x: hidden;
+        border: 2px solid red;
     }
 
     .content, .content.uploaded {
         margin: 0;
-    
-        height: 70%;
+        padding: 0;
+        height: 80%;
         // width: 80%;
-        // border: 2px solid green;
+        border: 2px solid green;
         // display: block;
         // display:grid;
         display: flex;
@@ -864,7 +871,9 @@ footer a {
         justify-content: center;
         justify-items: center;
         justify-self: center;
-        
+        align-items: center;
+        align-content: center;
+        align-self: center;
     }
 
     .content h1 {

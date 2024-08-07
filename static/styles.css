@@ -25,11 +25,6 @@ body {
   width: 100vw;
 }
 
-html, body {
-  height: 100%;
-  overflow: hidden;
-}
-
 .content {
   margin: 0;
   padding: 0;
@@ -386,7 +381,6 @@ html, body {
 }
 
 .playpause {
-  position: absolute;
   left: 0;
   right: 1.2em;
   display: flex;
@@ -600,7 +594,8 @@ footer a {
   html {
     height: 100%;
     width: 100%;
-    overflow: auto;
+    overflow: hidden;
+    overflow-x: hidden;
   }
   body {
     display: flex;
@@ -610,16 +605,28 @@ footer a {
     align-items: center;
     align-content: center;
     align-self: center;
+    height: 100%;
+    width: 100%;
     overflow: auto;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    overflow-x: hidden;
+    border: 2px solid red;
   }
   .content, .content.uploaded {
     margin: 0;
-    height: 70%;
+    padding: 0;
+    height: 80%;
+    border: 2px solid green;
     display: flex;
     flex-direction: column;
     justify-content: center;
     justify-items: center;
     justify-self: center;
+    align-items: center;
+    align-content: center;
+    align-self: center;
   }
   .content h1 {
     font-size: 7vw;
