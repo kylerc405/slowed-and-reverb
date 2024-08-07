@@ -656,7 +656,7 @@ footer a {
     height: 3vh;
   }
   #formDiv.uploaded {
-    margin: 0 0 0 0;
+    margin: 0.2em 0 0 0;
     padding: 0 0 0 0;
     grid-row: 1;
     justify-content: flex-start;
@@ -758,9 +758,9 @@ footer a {
     font-size: 5vh, 0.9em, 8vh;
   }
   .effectSlider {
-    width: 35vh;
+    width: 30vh;
     height: 2vh;
-    padding-top: 0;
+    margin-top: 5em;
   }
   .effectSlider::-webkit-slider-thumb {
     width: 1.3em; /* Thumb width */
