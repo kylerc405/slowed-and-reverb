@@ -754,10 +754,10 @@ footer a {
         width: 100%;
     }
     #main-container {
-        margin-top: 8em;
+        margin-top: 10em;
         padding-top: 1em;
         // border: 2px solid red;
-        margin-bottom: 1em;
+        margin-bottom: -4em;
     }
     #downloadBtn {
         padding: 0.5em;
@@ -786,11 +786,11 @@ footer a {
         height: 80%;
         margin: 0 0 0 0;
         padding: 0 0 0 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        justify-items: flex-start;
-        justify-self: flex-start;
+        // display: flex;
+        // flex-direction: column;
+        // justify-content: flex-start;
+        // justify-items: flex-start;
+        // justify-self: flex-start;
     }
     .effectSlider {
         // height: 75%; /* Track height */
