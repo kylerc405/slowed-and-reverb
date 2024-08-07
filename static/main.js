@@ -327,19 +327,19 @@ import { visualizeAudio } from "./visualizer.js";
     const transposeValue = document.getElementById("transposeValue");
     // source.connect(pitchNode)
 
-    audioElement.preservesPitch = true;
-    audioElement.mozPreservesPitch = true;
-    audioElement.webkitPreservesPitch = true;
+    audioElement.preservesPitch = false;
+    audioElement.mozPreservesPitch = false;
+    audioElement.webkitPreservesPitch = false;
     audioElement.playbackRate = 1;
 
     function shift_factor(semitones) {
-        const playbackSpeed = Math.pow(2, (semitones/12));
-        return playbackSpeed;
+        return Math.pow(2, semitones/12);
     }
 
     speedControl.addEventListener("input", () => {
         const factor = shift_factor(speedControl.value);
         audioElement.playbackRate = factor;
+        // source.playbackRate.value = factor;
         speedValue.textContent = factor.toFixed(2);
         if (speedControl.value > 0) {
             transposeValue.textContent = "+" + speedControl.value;
@@ -347,9 +347,6 @@ import { visualizeAudio } from "./visualizer.js";
         else {
             transposeValue.textContent = speedControl.value;
         }
-
-
-
     },
     false);
     // pitch reset button
