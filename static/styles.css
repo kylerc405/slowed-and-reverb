@@ -612,14 +612,12 @@ footer a {
     padding: 0;
     overflow: hidden;
     overflow-x: hidden;
-    border: 2px solid red;
   }
   .content, .content.uploaded {
     margin: 0;
     padding: 0;
     height: 100%;
     width: 100%;
-    border: 2px solid green;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -658,7 +656,6 @@ footer a {
     height: 3vh;
   }
   #formDiv.uploaded {
-    border: 2px solid white;
     margin: 0 0 0 0;
     padding: 0 0 0 0;
     grid-row: 1;
@@ -667,7 +664,6 @@ footer a {
     justify-self: flex-start;
   }
   #main-container {
-    border: 2px solid green;
     max-width: 97vw;
     height: 100%;
     grid-row: 2;
@@ -746,6 +742,7 @@ footer a {
   .div-buttons {
     font-size: clamp(0.5em, 3.1vw, 1em);
     margin-top: 0em;
+    margin-bottom: -2em;
   }
   .resetBtn {
     z-index: 15;
@@ -759,9 +756,8 @@ footer a {
     font-size: 5vh, 0.9em, 8vh;
   }
   .effectSlider {
-    width: 30vh;
+    width: 35vh;
     height: 2vh;
-    margin-top: -1em;
     padding-top: 0;
   }
   .effectSlider::-webkit-slider-thumb {
@@ -777,7 +773,7 @@ footer a {
     justify-content: flex-end;
     justify-self: center;
     grid-row: 3;
-    margin-top: -1em;
+    margin-bottom: -1em;
   }
   #times {
     width: 90vw;
