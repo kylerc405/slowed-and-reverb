@@ -694,7 +694,7 @@ footer a {
     overflow-wrap: break-word;
     word-wrap: break-word;
     white-space: normal;
-    margin-bottom: -1%;
+    margin-bottom: -5%;
     margin-top: 0%;
   }
   #canvasContainer {
@@ -780,7 +780,6 @@ footer a {
   }
   #times {
     width: 90vw;
-    margin-bottom: -0.3em;
   }
   #endtime {
     margin-right: -0.5em;
