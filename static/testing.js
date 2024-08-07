@@ -4,6 +4,7 @@ import { visualizeAudio } from "./visualizer.js";
     document.addEventListener('DOMContentLoaded', async function () {
 
     const audioElement = document.getElementById('audioPlayer');
+    audioElement.muted = true;
     const playPauseButton = document.getElementById('playpause');
     // const source = document.getElementById('audioSource');
     let isPlaying = false;
@@ -15,7 +16,7 @@ import { visualizeAudio } from "./visualizer.js";
 
     // const source = audioContext.createMediaElementSource(audioElement); // input source
     // window.audioSource = source
-    let sourceNode;
+    // let sourceNode;
 
 
 
@@ -78,7 +79,7 @@ import { visualizeAudio } from "./visualizer.js";
     audioElement.onloadedmetadata = function() {
         updateRemainingTime();
     };
-    updateRemainingTime();
+    // updateRemainingTime();
 
 
 
@@ -172,29 +173,77 @@ import { visualizeAudio } from "./visualizer.js";
 
 
 
-
+    let sourceNode;
     async function fetchAudioBuffer(url, audioContext) {
-        const response = await fetch(url);
-        const arrayBuffer = await response.arrayBuffer();
-        return await audioContext.decodeAudioData(arrayBuffer);
-    }
-    async function setupAudioBuffer() {
-        const audioBuffer = await fetchAudioBuffer(audioElement.src, audioContext);
-        if (sourceNode) {
-            sourceNode.disconnect();
+        try {
+            const response = await fetch(url);
+            const arrayBuffer = await response.arrayBuffer();
+            const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+            console.log("Audio buffer fetched and decoded successfully.");
+            return audioBuffer;
+        }
+        catch (error) {
+            console.error("Error fetching or decoding audio data:", error);
+            throw error;
         }
 
+    }
+    let mainAudioBuffer = null;
+    async function loadAudioBuffer() {
+        try {
+            mainAudioBuffer = await fetchAudioBuffer(audioElement.src, audioContext);
+            console.log("mainAudioBuffer is loaded:", mainAudioBuffer);
+        } catch (error) {
+            console.error("Error loading audio buffer:", error);
+        }
+    }
+
+    function setupSourceNode() {
+        // const audioBuffer = await fetchAudioBuffer(audioElement.src, audioContext);
+        if (sourceNode) {
+            sourceNode.disconnect();
+            console.log("Previous source node disconnected.");
+        }
         sourceNode = audioContext.createBufferSource();
-        sourceNode.buffer = audioBuffer;
+        if (mainAudioBuffer) {
+            sourceNode.buffer = mainAudioBuffer;
+            console.log("Source node buffer set to mainAudioBuffer.");
+        }
+        else {
+            console.error("audio buffer not loaded");
+            return;
+        }
+
         sourceNode.playbackRate.value = audioElement.playbackRate;
         sourceNode.connect(gainNode);
+        console.log("Source node connected to gain node.");
+        // sourceNode.onended = () => {
+        //     isPlaying = false;
+        // };
         // sourceNode.connect(wetGainNode);
         // sourceNode.connect(dryGainNode);
         // sourceNode.connect(analyserNode);
-        sourceNode.start(0, audioElement.currentTime); //play from currentTime 
+        // sourceNode.start(0, audioElement.currentTime); //play from currentTime 
     }
 
-    setupAudioBuffer();
+
+    async function playAudio() {
+        // if (isPlaying) return;
+        if (!mainAudioBuffer) {
+            console.log("Loading audio buffer...");
+            await loadAudioBuffer();
+        }
+        setupSourceNode();
+        if (mainAudioBuffer) {
+            sourceNode.start(0, audioElement.currentTime); //play from currentTime 
+            console.log("Source node started at current time:", audioElement.currentTime);
+        } else {
+            console.error("Cannot start source node as mainAudioBuffer is not loaded.");
+        }
+        // isPlaying = true;
+    }
+
+    setupSourceNode();
 
 
 
@@ -245,21 +294,47 @@ import { visualizeAudio } from "./visualizer.js";
 
 
     // play/pause button
+
+    let prevPause = false;
+
     playPauseButton.addEventListener('click', function() {
         if (audioContext.state === "suspended") {
             audioContext.resume();
         }
         if (isPlaying) {
             audioElement.pause();
-            sourceNode.stop();
+            if (sourceNode) {
+                sourceNode.stop();
+                sourceNode.disconnect();
+            }
             playPauseButton.setAttribute('data-playing', 'false');
             // playPauseButton.textContent = "▶"
+
+            console.log("paused")
+            prevPause = true;
         }
         else {
+            if (!mainAudioBuffer) {
+                loadAudioBuffer();
+            }
+            if (sourceNode==true && prevPause == true) {
+                sourceNode.stop();
+                sourceNode.disconnect();
+                console.log("fart")
+            }
+
+            // sourceNode.start(0, audioElement.currentTime);
+
+            // setupSourceNode();
             audioElement.play();
-            sourceNode.play();
+            playAudio();
+            // sourceNode.start(0, audioElement.currentTime);
+            // counter++;
+            // console.log("initial counter 0 start, counter now == " + counter)
             playPauseButton.setAttribute('data-playing', 'true');
             // playPauseButton.textContent = "❚❚"
+
+            console.log("played")
         }
         isPlaying = !isPlaying;
     })
@@ -283,33 +358,33 @@ import { visualizeAudio } from "./visualizer.js";
         audioElement.currentTime = changeToTime;
         if (sourceNode) {
             sourceNode.stop();
-            setupAudioBuffer();
+            // setupAudioBufferAndPlay();
         }
     })
 
 
     // play/pause with space
-    document.addEventListener("keydown", function(event) {
-        if (event.key === " ") {
-            event.preventDefault();
-            isPlaying = !isPlaying;
+    // document.addEventListener("keydown", function(event) {
+    //     if (event.key === " ") {
+    //         event.preventDefault();
+    //         isPlaying = !isPlaying;
 
-            if (!audioElement.paused) {
-                playPauseButton.checked = false;
-                playPauseButton.setAttribute('data-playing', 'false');
-                audioElement.pause();
-                sourceNode.stop();
-            }
-            else {
-                playPauseButton.checked = true;
-                playPauseButton.setAttribute('data-playing', 'true');
-                setupAudioBufffer();
-                audioElement.play();
-                // sourceNode.play();
-            }
+    //         if (!audioElement.paused) {
+    //             playPauseButton.checked = false;
+    //             playPauseButton.setAttribute('data-playing', 'false');
+    //             audioElement.pause();
+    //             sourceNode.stop();
+    //         }
+    //         else {
+    //             playPauseButton.checked = true;
+    //             playPauseButton.setAttribute('data-playing', 'true');
+    //             setupAudioBufffer();
+    //             audioElement.play();
+    //             // sourceNode.play();
+    //         }
 
-        }
-    })
+    //     }
+    // })
 
 
     // function updateSliderBackground(value) {
