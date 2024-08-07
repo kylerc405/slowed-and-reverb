@@ -684,7 +684,7 @@ footer a {
     flex-direction: column;
     justify-content: center;
     margin-left: -0.3em;
-    margin-top: -5em;
+    margin-top: -4em;
   }
   #songTitle {
     display: flex;
@@ -745,7 +745,7 @@ footer a {
   }
   .div-buttons {
     font-size: clamp(0.5em, 3.1vw, 1em);
-    margin-top: -2em;
+    margin-top: 0em;
   }
   .resetBtn {
     z-index: 15;
@@ -761,7 +761,7 @@ footer a {
   .effectSlider {
     width: 30vh;
     height: 2vh;
-    margin-top: -5em;
+    margin-top: -1em;
     padding-top: 0;
   }
   .effectSlider::-webkit-slider-thumb {
@@ -777,7 +777,7 @@ footer a {
     justify-content: flex-end;
     justify-self: center;
     grid-row: 3;
-    margin-top: -4em;
+    margin-top: -1em;
   }
   #times {
     width: 90vw;
