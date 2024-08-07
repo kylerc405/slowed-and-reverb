@@ -761,7 +761,8 @@ footer a {
   .effectSlider {
     width: 32vh;
     height: 2vh;
-    margin-top: 3em;
+    margin-top: 2.5em;
+    margin-bottom: 0.25em;
   }
   .effectSlider::-webkit-slider-thumb {
     width: 1.3em; /* Thumb width */
