@@ -33,23 +33,22 @@ import { visualizeAudio } from "./visualizer.js";
     async function fetchAudioBuffer(url, audioContext) {
         try {
             audioReady = false;
+            document.body.classList.add('loading'); // Show loading screen
             const response = await fetch(url);
             console.log("fetched audio data...");
             const arrayBuffer = await response.arrayBuffer();
             console.log("created array buffer...");
             const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-
-            background.style.backgroundColor = "red";
-
+            // background.style.backgroundColor = "red";
             console.log("created audio buffer...");
-            background.style.backgroundColor = "green";
-            // background.style.opacity = "1";
             audioReady = true;
             return audioBuffer;
         }
         catch (error) {
             console.error("Error fetching or decoding audio data:", error);
             throw error;
+        } finally {
+            document.body.classList.remove('loading'); // Hide loading screen
         }
 
     }
@@ -62,7 +61,7 @@ import { visualizeAudio } from "./visualizer.js";
             console.error("Error loading audio buffer:", error);
         }
     }
-    loadAudioBuffer();
+    await loadAudioBuffer();
 
     function setupSourceNode() {
         // const audioBuffer = await fetchAudioBuffer(audioElement.src, audioContext);
