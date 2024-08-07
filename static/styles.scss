@@ -722,7 +722,7 @@ footer a {
 
 @media only screen and (max-height: 650px) and (orientation: landscape) {
     html {
-        height: 110%;
+        height: 100%;
         width: 100%;
         // margin: 0;
         // padding: 0;
@@ -730,7 +730,7 @@ footer a {
         overflow-x: hidden;
     }
     body.uploaded {
-        height: 140%;
+        height: 180%;
         overflow:visible;
         width: 100%;
         margin: 0;
@@ -740,7 +740,7 @@ footer a {
     
     #formDiv.uploaded {
         // border: 2px solid white;
-        margin: 1em 0 0.7em 0;
+        margin: 8em 0 0.7em 0;
         padding: 0 0 0 0;
     }
 
