@@ -504,14 +504,14 @@ footer a {
     overflow-x: hidden;
   }
   body.uploaded {
-    height: 174%;
+    height: 171%;
     overflow: visible;
     width: 100%;
     margin: 0;
     padding: 0;
   }
   #formDiv.uploaded {
-    margin: 10em 0 0.7em 0;
+    margin: 9.3em 0 0.7em 0;
     padding: 0 0 0 0;
   }
   footer {
