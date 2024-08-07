@@ -500,12 +500,12 @@ footer a {
   html {
     height: 100%;
     width: 100%;
-    overflow: hidden;
+    overflow: auto;
     overflow-x: hidden;
   }
   body.uploaded {
-    height: 125%;
-    overflow: scroll;
+    height: 130%;
+    overflow: hidden;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -543,19 +543,25 @@ footer a {
     width: 50%;
   }
   .effectSlider {
-    width: 50vh;
+    width: 40vh;
     height: 4vh;
   }
   #resetReverb {
-    padding: 0.35em 0.17em 0.12em 0.3em;
+    padding: 0.25em 0.17em 0.12em 0.3em;
     margin: 0 0 0 0;
+    font-size: 0.8em;
   }
   .resetBtn {
-    padding: 0.35em 0.17em 0.12em 0.3em;
+    padding: 0.25em 0.17em 0.12em 0.3em;
     margin: 0 0 0 0;
+    font-size: 0.8em;
+  }
+  #reverseReverb {
+    padding: 0.25em 0.6em 0.25em 0.6em;
+    font-size: 0.8em;
   }
   .div-buttons {
-    margin-top: -1.5em;
+    margin-top: 0em;
   }
   .effects-text {
     line-height: 1.2em;
@@ -584,13 +590,14 @@ footer a {
     justify-self: center;
     margin-left: 1em;
     margin-bottom: 1em;
-    margin-top: 0%;
+    margin-top: 3em;
   }
   #time-outer-div {
     display: flex;
     justify-content: flex-end;
     justify-self: center;
     margin-top: 3em;
+    margin-bottom: 1em;
   }
   #times {
     width: 95vw;
@@ -600,7 +607,7 @@ footer a {
   }
   .playpause {
     margin-bottom: -0.2em;
-    position: fixed;
+    position: static;
   }
 }
 @media only screen and (max-width: 700px) and (orientation: portrait) {
