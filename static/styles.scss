@@ -730,7 +730,7 @@ footer a {
         overflow-x: hidden;
     }
     body.uploaded {
-        height: 172%;
+        height: 174%;
         overflow:visible;
         width: 100%;
         margin: 0;
@@ -745,6 +745,7 @@ footer a {
     }
 
     footer {
+        margin-top: 0.4em;
         position: static;
     }
     .content, .content.uploaded {
@@ -1118,7 +1119,7 @@ footer a {
         white-space: wrap;
         text-wrap: wrap;
         margin-left: 0.2em;
-        padding: 0.35em 0.82em 0.35em 0.82em;
+        padding: 0.3em 0.82em 0.3em 0.82em;
         font-size: (5vh, 0.9em, 8vh);
     }
     .effectSlider {
