@@ -19,14 +19,19 @@ import { visualizeAudio } from "./visualizer.js";
     // window.audioSource = source
     // let sourceNode;
 
+    const background = document.body;
 
     let sourceNode;
     async function fetchAudioBuffer(url, audioContext) {
         try {
+            console.log("awaiting fetch");
             const response = await fetch(url);
+            console.log("awaiting array buffer creation");
             const arrayBuffer = await response.arrayBuffer();
+            console.log("awaiting audio buffer creation");
             const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
             console.log("Audio buffer fetched and decoded successfully.");
+            background.style.backgroundColor = "green";
             return audioBuffer;
         }
         catch (error) {
