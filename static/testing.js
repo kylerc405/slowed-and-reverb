@@ -2,6 +2,10 @@ import { visualizeAudio } from "./visualizer.js";
 // import { downloader } from "./downloader.js";
 
     document.addEventListener('DOMContentLoaded', async function () {
+    let sourceNode;
+    let mainAudioBuffer = null;
+
+
 
     const audioElement = document.getElementById('audioPlayer');
     audioElement.muted = true;
@@ -15,23 +19,32 @@ import { visualizeAudio } from "./visualizer.js";
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     const audioContext = new AudioContext();
 
+    const gainNode = audioContext.createGain();
+    gainNode.gain.value = 1;
+
     // const source = audioContext.createMediaElementSource(audioElement); // input source
     // window.audioSource = source
     // let sourceNode;
 
     const background = document.body;
+    let audioReady = false;
 
-    let sourceNode;
-    let mainAudioBuffer = null;
+
     async function fetchAudioBuffer(url, audioContext) {
         try {
+            audioReady = false;
             const response = await fetch(url);
             console.log("fetched audio data...");
             const arrayBuffer = await response.arrayBuffer();
             console.log("created array buffer...");
             const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+            background.style.backgroundColor = "red";
+
             console.log("created audio buffer...");
             background.style.backgroundColor = "green";
+            // background.style.opacity = "1";
+            audioReady = true;
             return audioBuffer;
         }
         catch (error) {
@@ -49,6 +62,7 @@ import { visualizeAudio } from "./visualizer.js";
             console.error("Error loading audio buffer:", error);
         }
     }
+    loadAudioBuffer();
 
     function setupSourceNode() {
         // const audioBuffer = await fetchAudioBuffer(audioElement.src, audioContext);
@@ -76,7 +90,7 @@ import { visualizeAudio } from "./visualizer.js";
         // sourceNode.connect(analyserNode);
         // sourceNode.start(0, audioElement.currentTime); //play from currentTime 
     }
-
+    setupSourceNode();
 
     async function playAudio() {
         // if (isPlaying) return;
@@ -97,8 +111,7 @@ import { visualizeAudio } from "./visualizer.js";
         }
         // isPlaying = true;
     }
-    loadAudioBuffer();
-    setupSourceNode();
+
 
 
 
@@ -174,8 +187,7 @@ import { visualizeAudio } from "./visualizer.js";
 
 
     // gain
-    const gainNode = audioContext.createGain();
-    gainNode.gain.value = 1;
+
 
 
 
