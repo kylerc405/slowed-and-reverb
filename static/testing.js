@@ -13,11 +13,9 @@ import { visualizeAudio } from "./visualizer.js";
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     const audioContext = new AudioContext();
 
-    const source = audioContext.createMediaElementSource(audioElement); // input source
-    window.audioSource = source
-
-
-
+    // const source = audioContext.createMediaElementSource(audioElement); // input source
+    // window.audioSource = source
+    let sourceNode;
 
 
 
@@ -41,7 +39,8 @@ import { visualizeAudio } from "./visualizer.js";
     function updateRemainingTime() {
         const duration = audioElement.duration;
         const currentTime = audioElement.currentTime;
-        const playbackRate = audioElement.playbackRate;
+        // const playbackRate = audioElement.playbackRate;
+        const playbackRate = sourceNode ? sourceNode.playbackRate.value : 1;
 
         if (duration) {
             const newCur = currentTime / playbackRate;
@@ -173,10 +172,44 @@ import { visualizeAudio } from "./visualizer.js";
 
 
 
+
+    async function fetchAudioBuffer(url, audioContext) {
+        const response = await fetch(url);
+        const arrayBuffer = await response.arrayBuffer();
+        return await audioContext.decodeAudioData(arrayBuffer);
+    }
+    async function setupAudioBuffer() {
+        const audioBuffer = await fetchAudioBuffer(audioElement.src, audioContext);
+        if (sourceNode) {
+            sourceNode.disconnect();
+        }
+
+        sourceNode = audioContext.createBufferSource();
+        sourceNode.buffer = audioBuffer;
+        sourceNode.playbackRate.value = audioElement.playbackRate;
+        sourceNode.connect(gainNode);
+        // sourceNode.connect(wetGainNode);
+        // sourceNode.connect(dryGainNode);
+        // sourceNode.connect(analyserNode);
+        sourceNode.start(0, audioElement.currentTime); //play from currentTime 
+    }
+
+    setupAudioBuffer();
+
+
+
+
+
+
+
+
+
+
+
     // connections - dry
     // source -> gain -> dry -> (mixed/analyser) -> destination
     // source.connect(gainNode);
-    source.connect(gainNode);
+    // source.connect(gainNode);
     gainNode.connect(dryGainNode);
     dryGainNode.connect(audioContext.destination)
 
@@ -218,11 +251,13 @@ import { visualizeAudio } from "./visualizer.js";
         }
         if (isPlaying) {
             audioElement.pause();
+            sourceNode.stop();
             playPauseButton.setAttribute('data-playing', 'false');
             // playPauseButton.textContent = "▶"
         }
         else {
             audioElement.play();
+            sourceNode.play();
             playPauseButton.setAttribute('data-playing', 'true');
             // playPauseButton.textContent = "❚❚"
         }
@@ -231,11 +266,11 @@ import { visualizeAudio } from "./visualizer.js";
 
 
     // song progress bar
-    const audioPlayer = document.getElementById("audioPlayer");
+    // const audioPlayer = document.getElementById("audioPlayer");
     const slider = document.getElementById("timeline-slider");
 
-    audioPlayer.addEventListener("timeupdate", () => {
-        const percentage = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+    audioElement.addEventListener("timeupdate", () => {
+        const percentage = (audioElement.currentTime / audioElement.duration) * 100;
         slider.value = percentage;
 
         // played duration change color
@@ -244,8 +279,12 @@ import { visualizeAudio } from "./visualizer.js";
     })
 
     slider.addEventListener("input", () => {
-        const changeToTime = slider.value / 100 * audioPlayer.duration;
-        audioPlayer.currentTime = changeToTime;
+        const changeToTime = slider.value / 100 * audioElement.duration;
+        audioElement.currentTime = changeToTime;
+        if (sourceNode) {
+            sourceNode.stop();
+            setupAudioBuffer();
+        }
     })
 
 
@@ -259,11 +298,14 @@ import { visualizeAudio } from "./visualizer.js";
                 playPauseButton.checked = false;
                 playPauseButton.setAttribute('data-playing', 'false');
                 audioElement.pause();
+                sourceNode.stop();
             }
             else {
                 playPauseButton.checked = true;
                 playPauseButton.setAttribute('data-playing', 'true');
+                setupAudioBufffer();
                 audioElement.play();
+                // sourceNode.play();
             }
 
         }
@@ -318,6 +360,7 @@ import { visualizeAudio } from "./visualizer.js";
                 playPauseButton.checked = false;
                 playPauseButton.setAttribute('data-playing', 'false');
                 audioElement.pause();
+                
             }
             else {
                 slider.value = 0;
@@ -339,7 +382,7 @@ import { visualizeAudio } from "./visualizer.js";
     audioElement.preservesPitch = false;
     audioElement.mozPreservesPitch = false;
     audioElement.webkitPreservesPitch = false;
-    audioElement.playbackRate = 1;
+    // audioElement.playbackRate = 1;
 
     function shift_factor(semitones) {
         return Math.pow(2, semitones/12);
@@ -347,7 +390,12 @@ import { visualizeAudio } from "./visualizer.js";
 
     speedControl.addEventListener("input", () => {
         const factor = shift_factor(speedControl.value);
-        audioElement.playbackRate = factor;
+        // audioElement.playbackRate = factor;
+
+        if (sourceNode) {
+            sourceNode.playbackRate.value = factor;
+        }
+
         // sourceNode.playbackRate.value = factor;
         speedValue.textContent = factor.toFixed(2);
         if (speedControl.value > 0) {
@@ -356,21 +404,28 @@ import { visualizeAudio } from "./visualizer.js";
         else {
             transposeValue.textContent = speedControl.value;
         }
+        updateRemainingTime();
     },
     false);
     // pitch reset button
     const speedReset = document.getElementById("resetSpeed");
     speedReset.addEventListener("click", () => {
-        audioElement.playbackRate = 1.0;
+        // audioElement.playbackRate = 1.0;
+
+        if (sourceNode) {
+            sourceNode.playbackRate.value = 1.0;
+        }
+
+
         speedValue.textContent = parseFloat(1.0).toFixed(2);
         speedControl.value = 0.0;
         transposeValue.textContent = 0;
         updateRemainingTime();
     })
-    //adjust timeline when pitch/speed changes
-    speedControl.addEventListener("input", () => {
-        updateRemainingTime();
-    });
+    // //adjust timeline when pitch/speed changes
+    // speedControl.addEventListener("input", () => {
+    //     updateRemainingTime();
+    // });
 
 
 
@@ -437,11 +492,11 @@ import { visualizeAudio } from "./visualizer.js";
         updateConvolver();
     })
 
-    async function fetchAudioBuffer(url, audioContext) {
-        const response = await fetch(url);
-        const arrayBuffer = await response.arrayBuffer();
-        return await audioContext.decodeAudioData(arrayBuffer);
-    }
+    // async function fetchAudioBuffer(url, audioContext) {
+    //     const response = await fetch(url);
+    //     const arrayBuffer = await response.arrayBuffer();
+    //     return await audioContext.decodeAudioData(arrayBuffer);
+    // }
 
     
 
@@ -502,195 +557,198 @@ import { visualizeAudio } from "./visualizer.js";
 
 
 
+// ---------------- download stuff ----------------------------------
 
 
-    // allows wav audio to clip/distort (cool effect, as it does on the real-time site audio), 
-    // instead of just cutting out >1.0 threshold audio, as wav seems to do by default
-    function limitBuffer(buffer, threshold) { 
-        for (let channel = 0; channel < buffer.numberOfChannels; channel++) {
-            const channelData = buffer.getChannelData(channel);
-            for (let i = 0; i < channelData.length; i++) {
-                if (channelData[i] > threshold) {
-                    channelData[i] = threshold;
-                } else if (channelData[i] < -threshold) {
-                    channelData[i] = -threshold;
-                }
-                if (i < 200) {
-                    console.log("limited value: " + channelData[i])
-                }
-                }
-        }
-        return buffer;
-    }
+
+
+    // // allows wav audio to clip/distort (cool effect, as it does on the real-time site audio), 
+    // // instead of just cutting out >1.0 threshold audio, as wav seems to do by default
+    // function limitBuffer(buffer, threshold) { 
+    //     for (let channel = 0; channel < buffer.numberOfChannels; channel++) {
+    //         const channelData = buffer.getChannelData(channel);
+    //         for (let i = 0; i < channelData.length; i++) {
+    //             if (channelData[i] > threshold) {
+    //                 channelData[i] = threshold;
+    //             } else if (channelData[i] < -threshold) {
+    //                 channelData[i] = -threshold;
+    //             }
+    //             if (i < 200) {
+    //                 console.log("limited value: " + channelData[i])
+    //             }
+    //             }
+    //     }
+    //     return buffer;
+    // }
    
-    function getWavBytes(buffer, options) {
-        const type = options.isFloat ? Float32Array : Uint16Array
-        const numFrames = buffer.byteLength / type.BYTES_PER_ELEMENT;
+    // function getWavBytes(buffer, options) {
+    //     const type = options.isFloat ? Float32Array : Uint16Array
+    //     const numFrames = buffer.byteLength / type.BYTES_PER_ELEMENT;
     
-        const headerBytes = getWavHeader(Object.assign({}, options, { numFrames }))
-        const wavBytes = new Uint8Array(headerBytes.length + buffer.byteLength);
+    //     const headerBytes = getWavHeader(Object.assign({}, options, { numFrames }))
+    //     const wavBytes = new Uint8Array(headerBytes.length + buffer.byteLength);
     
-        //prepend header then add pcmBytes
-        wavBytes.set(headerBytes, 0);
-        wavBytes.set(new Uint8Array(buffer), headerBytes.length)
+    //     //prepend header then add pcmBytes
+    //     wavBytes.set(headerBytes, 0);
+    //     wavBytes.set(new Uint8Array(buffer), headerBytes.length)
     
-        return wavBytes
-    };
+    //     return wavBytes
+    // };
     
-    function getWavHeader(options) {
-        const numFrames = options.numFrames
-        const numChannels = options.numChannels || 2
-        const sr = options.sampleRate || 44100
-        const bytesPerSample = options.isFloat ? 4 : 2
-        const format = options.isFloat ? 3 : 1
+    // function getWavHeader(options) {
+    //     const numFrames = options.numFrames
+    //     const numChannels = options.numChannels || 2
+    //     const sr = options.sampleRate || 44100
+    //     const bytesPerSample = options.isFloat ? 4 : 2
+    //     const format = options.isFloat ? 3 : 1
     
-        const blockAlign = numChannels * bytesPerSample
-        const byteRate = sr * blockAlign
-        const dataSize = numFrames * blockAlign
+    //     const blockAlign = numChannels * bytesPerSample
+    //     const byteRate = sr * blockAlign
+    //     const dataSize = numFrames * blockAlign
         
-        const buffer = new ArrayBuffer(44)
-        const dv = new DataView(buffer)
+    //     const buffer = new ArrayBuffer(44)
+    //     const dv = new DataView(buffer)
     
-        let p=0
+    //     let p=0
     
-        function writeString(s) {
-            for (let i = 0; i < s.length; i++) {
-                dv.setUint8(p + i, s.charCodeAt(i));
-            }
-            p += s.length
-        }
+    //     function writeString(s) {
+    //         for (let i = 0; i < s.length; i++) {
+    //             dv.setUint8(p + i, s.charCodeAt(i));
+    //         }
+    //         p += s.length
+    //     }
     
-        function writeUint32(d) {
-            dv.setUint32(p, d, true);
-            p += 4
-        }
-        function writeUint16(d) {
-            dv.setUint16(p, d, true);
-            p += 2
-        }
+    //     function writeUint32(d) {
+    //         dv.setUint32(p, d, true);
+    //         p += 4
+    //     }
+    //     function writeUint16(d) {
+    //         dv.setUint16(p, d, true);
+    //         p += 2
+    //     }
     
-        writeString('RIFF')              // ChunkID
-        writeUint32(dataSize + 36)       // ChunkSize
-        writeString('WAVE')              // Format
-        writeString('fmt ')              // Subchunk1ID
-        writeUint32(16)                  // Subchunk1Size
-        writeUint16(format)              // AudioFormat
-        writeUint16(numChannels)         // NumChannels
-        writeUint32(sr)                  // SampleRate
-        writeUint32(byteRate)            // ByteRate
-        writeUint16(blockAlign)          // BlockAlign
-        writeUint16(bytesPerSample * 8)  // BitsPerSample
-        writeString('data')              // Subchunk2ID
-        writeUint32(dataSize)            // Subchunk2Size
+    //     writeString('RIFF')              // ChunkID
+    //     writeUint32(dataSize + 36)       // ChunkSize
+    //     writeString('WAVE')              // Format
+    //     writeString('fmt ')              // Subchunk1ID
+    //     writeUint32(16)                  // Subchunk1Size
+    //     writeUint16(format)              // AudioFormat
+    //     writeUint16(numChannels)         // NumChannels
+    //     writeUint32(sr)                  // SampleRate
+    //     writeUint32(byteRate)            // ByteRate
+    //     writeUint16(blockAlign)          // BlockAlign
+    //     writeUint16(bytesPerSample * 8)  // BitsPerSample
+    //     writeString('data')              // Subchunk2ID
+    //     writeUint32(dataSize)            // Subchunk2Size
     
-        return new Uint8Array(buffer);
-    }
+    //     return new Uint8Array(buffer);
+    // }
     
-    // resampling for convolution node
-    async function resampleBuffer(audioContext, buffer, targetSampleRate) {
-        const offlineContext = new OfflineAudioContext(
-            buffer.numberOfChannels,
-            buffer.length * targetSampleRate / buffer.sampleRate,
-            targetSampleRate
-        );
-        const bufferSource = offlineContext.createBufferSource();
-        bufferSource.buffer = buffer;
-        bufferSource.connect(offlineContext.destination);
-        bufferSource.start();
-        const resampledBuffer = await offlineContext.startRendering();
-        return resampledBuffer;
-    }
+    // // resampling for convolution node
+    // async function resampleBuffer(audioContext, buffer, targetSampleRate) {
+    //     const offlineContext = new OfflineAudioContext(
+    //         buffer.numberOfChannels,
+    //         buffer.length * targetSampleRate / buffer.sampleRate,
+    //         targetSampleRate
+    //     );
+    //     const bufferSource = offlineContext.createBufferSource();
+    //     bufferSource.buffer = buffer;
+    //     bufferSource.connect(offlineContext.destination);
+    //     bufferSource.start();
+    //     const resampledBuffer = await offlineContext.startRendering();
+    //     return resampledBuffer;
+    // }
     
     
-    const downloadBtn = document.getElementById("downloadBtn");
+    // const downloadBtn = document.getElementById("downloadBtn");
     
-    downloadBtn.addEventListener("click", async () => {
-        const url = audioElement.src;
-        const buffer = await fetchAudioBuffer(url, audioContext);
+    // downloadBtn.addEventListener("click", async () => {
+    //     const url = audioElement.src;
+    //     const buffer = await fetchAudioBuffer(url, audioContext);
 
-        const newBufferLength = buffer.length / audioElement.playbackRate;
-        const offlineContext = new OfflineAudioContext(buffer.numberOfChannels, newBufferLength, buffer.sampleRate);
-        const offlineSourceNode = offlineContext.createBufferSource();
-        offlineSourceNode.buffer = buffer;
-
-
-        offlineSourceNode.playbackRate.value = audioElement.playbackRate;
+    //     const newBufferLength = buffer.length / audioElement.playbackRate;
+    //     const offlineContext = new OfflineAudioContext(buffer.numberOfChannels, newBufferLength, buffer.sampleRate);
+    //     const offlineSourceNode = offlineContext.createBufferSource();
+    //     offlineSourceNode.buffer = buffer;
 
 
-        // resample convolver buffer to match sample rate of OfflineContext
-        const resampledConvolverBuffer = await resampleBuffer(audioContext, convolverNode.buffer, offlineContext.sampleRate);
+    //     offlineSourceNode.playbackRate.value = audioElement.playbackRate;
+
+
+    //     // resample convolver buffer to match sample rate of OfflineContext
+    //     const resampledConvolverBuffer = await resampleBuffer(audioContext, convolverNode.buffer, offlineContext.sampleRate);
 
 
 
-        //create offline nodes
-        const offlineGainNode = offlineContext.createGain();
-        offlineGainNode.gain.value = gainNode.gain.value;
-        const offlineWetGainNode = offlineContext.createGain();
-        offlineWetGainNode.gain.value = wetGainNode.gain.value;
-        const offlineDryGainNode = offlineContext.createGain();
-        offlineDryGainNode.gain.value = dryGainNode.gain.value;
-        const offlineConvolverNode = offlineContext.createConvolver();
-        offlineConvolverNode.buffer = resampledConvolverBuffer;
-        // offlineConvolverNode.normalize = false;
+    //     //create offline nodes
+    //     const offlineGainNode = offlineContext.createGain();
+    //     offlineGainNode.gain.value = gainNode.gain.value;
+    //     const offlineWetGainNode = offlineContext.createGain();
+    //     offlineWetGainNode.gain.value = wetGainNode.gain.value;
+    //     const offlineDryGainNode = offlineContext.createGain();
+    //     offlineDryGainNode.gain.value = dryGainNode.gain.value;
+    //     const offlineConvolverNode = offlineContext.createConvolver();
+    //     offlineConvolverNode.buffer = resampledConvolverBuffer;
+    //     // offlineConvolverNode.normalize = false;
  
 
-        // const offlineAnalyser = offlineContext.createAnalyser();
+    //     // const offlineAnalyser = offlineContext.createAnalyser();
 
-        // offlineGainNode.gain.value =200;
+    //     // offlineGainNode.gain.value =200;
 
-        //dry connections
-        offlineSourceNode.connect(offlineGainNode);
-        offlineGainNode.connect(offlineDryGainNode);
-        offlineDryGainNode.connect(offlineContext.destination);
+    //     //dry connections
+    //     offlineSourceNode.connect(offlineGainNode);
+    //     offlineGainNode.connect(offlineDryGainNode);
+    //     offlineDryGainNode.connect(offlineContext.destination);
 
-        //wet connections
-        // offlineSourceNode.connect(offlineWetGainNode);
-        offlineGainNode.connect(offlineWetGainNode);
-        offlineWetGainNode.connect(offlineConvolverNode);
-        offlineConvolverNode.connect(offlineContext.destination);
+    //     //wet connections
+    //     // offlineSourceNode.connect(offlineWetGainNode);
+    //     offlineGainNode.connect(offlineWetGainNode);
+    //     offlineWetGainNode.connect(offlineConvolverNode);
+    //     offlineConvolverNode.connect(offlineContext.destination);
         
 
-        offlineSourceNode.start();
+    //     offlineSourceNode.start();
 
 
-        let _newBuffer;
-        await offlineContext.startRendering().then(response => {
-            _newBuffer = response;
-        });
+    //     let _newBuffer;
+    //     await offlineContext.startRendering().then(response => {
+    //         _newBuffer = response;
+    //     });
 
-        const newBuffer = limitBuffer(_newBuffer, 1.0);
+    //     const newBuffer = limitBuffer(_newBuffer, 1.0);
 
         
 
-        // buffer to wav conversion
-        const [left, right] = [newBuffer.getChannelData(0), newBuffer.getChannelData(1)];
-        const interleaved = new Float32Array(left.length + right.length);
-        for (let src = 0, dst = 0; src < left.length; src++, dst += 2) {
-            interleaved[dst] = left[src];
-            interleaved[dst + 1] = right[src];
-        }
+    //     // buffer to wav conversion
+    //     const [left, right] = [newBuffer.getChannelData(0), newBuffer.getChannelData(1)];
+    //     const interleaved = new Float32Array(left.length + right.length);
+    //     for (let src = 0, dst = 0; src < left.length; src++, dst += 2) {
+    //         interleaved[dst] = left[src];
+    //         interleaved[dst + 1] = right[src];
+    //     }
 
-        // get wav file bytes and audio params from source node
-        const wavBytes = getWavBytes(interleaved.buffer, {
-            isFloat: true,
-            numChannels: 2,
-            sampleRate: buffer.sampleRate,
-        })
-        const blob = new Blob([wavBytes], {type: 'audio/wav'});
+    //     // get wav file bytes and audio params from source node
+    //     const wavBytes = getWavBytes(interleaved.buffer, {
+    //         isFloat: true,
+    //         numChannels: 2,
+    //         sampleRate: buffer.sampleRate,
+    //     })
+    //     const blob = new Blob([wavBytes], {type: 'audio/wav'});
     
-        // //link creation
-        // const songTitle = document.getElementById('songTitle');
-        // const file = songTitle.getAttribute('data-song-name');
-        const fileTitleArray= file.split('.');
-        const fileTitle = fileTitleArray[fileTitleArray.length-2];
+    //     // //link creation
+    //     // const songTitle = document.getElementById('songTitle');
+    //     // const file = songTitle.getAttribute('data-song-name');
+    //     const fileTitleArray= file.split('.');
+    //     const fileTitle = fileTitleArray[fileTitleArray.length-2];
         
 
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = fileTitle + "-Slowed+Reverb.wav";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-    });
+    //     const a = document.createElement("a");
+    //     a.href = URL.createObjectURL(blob);
+    //     a.download = fileTitle + "-Slowed+Reverb.wav";
+    //     document.body.appendChild(a);
+    //     a.click();
+    //     document.body.removeChild(a);
+    // });
 });
 
