@@ -498,13 +498,13 @@ footer a {
 }
 @media only screen and (max-height: 650px) and (orientation: landscape) {
   html {
-    height: 145%;
+    height: 135%;
     width: 100%;
     overflow: auto;
     overflow-x: hidden;
   }
   body.uploaded {
-    height: 145%;
+    height: 100%;
     overflow: hidden;
     width: 100%;
     margin: 0;
