@@ -608,9 +608,9 @@ body {
         z-index: 5;
       }
     }
-  }
+}
 
-  #timeline-slider {
+#timeline-slider {
     width: 100%;
     margin: 1em 0em 1em 0em;
     // padding: 0 0 0 10em;
@@ -730,7 +730,7 @@ footer a {
         overflow-x: hidden;
     }
     body.uploaded {
-        height: 170%;
+        height: 172%;
         overflow:visible;
         width: 100%;
         margin: 0;
@@ -856,7 +856,7 @@ footer a {
         justify-content: flex-end;
         justify-self: center;
         margin-top: 5em;
-        margin-bottom: 1em;
+        margin-bottom: 1.5em;
         // margin-bottom: -1em;
     }
     #times {
@@ -1118,7 +1118,7 @@ footer a {
         white-space: wrap;
         text-wrap: wrap;
         margin-left: 0.2em;
-        padding: 0.4em 0.6em 0.4em 0.7em;
+        padding: 0.35em 0.82em 0.35em 0.82em;
         font-size: (5vh, 0.9em, 8vh);
     }
     .effectSlider {
