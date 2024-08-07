@@ -758,9 +758,9 @@ footer a {
     font-size: 5vh, 0.9em, 8vh;
   }
   .effectSlider {
-    width: 32vh;
+    width: 34vh;
     height: 2vh;
-    margin-top: 4em;
+    margin-top: 3em;
   }
   .effectSlider::-webkit-slider-thumb {
     width: 1.3em; /* Thumb width */
