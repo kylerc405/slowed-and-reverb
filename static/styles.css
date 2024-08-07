@@ -497,20 +497,27 @@ footer a {
   }
 }
 @media only screen and (max-height: 650px) and (orientation: landscape) {
-  html, body {
-    margin: 0;
-    overflow: auto;
+  html {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    overflow-x: hidden;
   }
   body.uploaded {
-    height: 145%;
+    height: 125%;
     overflow: scroll;
     width: 100%;
+    margin: 0;
+    padding: 0;
   }
   footer {
     position: static;
   }
-  .content.uploaded {
-    height: 90%;
+  .content, .content.uploaded {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
   }
   #main-container {
     margin-top: 3em;
@@ -534,6 +541,10 @@ footer a {
   .effects {
     margin-top: 3%;
     width: 50%;
+  }
+  .effectSlider {
+    width: 50vh;
+    height: 4vh;
   }
   #resetReverb {
     padding: 0.35em 0.17em 0.12em 0.3em;
@@ -589,6 +600,7 @@ footer a {
   }
   .playpause {
     margin-bottom: -0.2em;
+    position: fixed;
   }
 }
 @media only screen and (max-width: 700px) and (orientation: portrait) {
