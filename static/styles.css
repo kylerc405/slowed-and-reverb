@@ -584,7 +584,6 @@ footer a {
     justify-content: center;
     justify-items: center;
     justify-self: center;
-    margin-bottom: -1em;
   }
   #visualizerCanvas {
     width: clamp(40em, 55vmin, 80em);
