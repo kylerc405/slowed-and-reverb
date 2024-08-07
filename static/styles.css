@@ -554,16 +554,16 @@ footer a {
     padding: 0 0 0 0;
   }
   .effectSlider {
-    width: 38vh;
+    width: 39vh;
     height: 4vh;
   }
   #resetReverb {
-    padding: 0.25em 0.17em 0.12em 0.3em;
+    padding: 0.25em 0.17em 0.12em 0.35em;
     margin: 0 0 0 0;
     font-size: 0.8em;
   }
   .resetBtn {
-    padding: 0.25em 0.17em 0.12em 0.3em;
+    padding: 0.25em 0.17em 0.12em 0.35em;
     margin: 0 0 0 0;
     font-size: 0.8em;
   }
@@ -588,6 +588,7 @@ footer a {
   #visualizerCanvas {
     width: clamp(40em, 55vmin, 80em);
     height: clamp(10em, 55vmin, 48em);
+    margin-top: -0.5em;
   }
   #songTitle {
     font-size: clamp(0.7em, 2vw, 1.7em);
@@ -599,8 +600,8 @@ footer a {
     justify-content: center;
     justify-self: center;
     margin-left: 1em;
-    margin-top: -3em;
-    margin-bottom: 2em;
+    margin-top: -2em;
+    margin-bottom: 1em;
   }
   #time-outer-div {
     display: flex;
