@@ -599,7 +599,7 @@ footer a {
     justify-content: center;
     justify-self: center;
     margin-left: 1em;
-    margin-top: -1em;
+    margin-top: -3em;
   }
   #time-outer-div {
     display: flex;
