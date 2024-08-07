@@ -327,9 +327,9 @@ import { visualizeAudio } from "./visualizer.js";
     const transposeValue = document.getElementById("transposeValue");
     // source.connect(pitchNode)
 
-    audioElement.preservesPitch = false;
-    audioElement.mozPreservesPitch = false;
-    audioElement.webkitPreservesPitch = false;
+    audioElement.preservesPitch = true;
+    audioElement.mozPreservesPitch = true;
+    audioElement.webkitPreservesPitch = true;
     audioElement.playbackRate = 1;
 
     function shift_factor(semitones) {
