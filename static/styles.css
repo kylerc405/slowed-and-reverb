@@ -504,8 +504,8 @@ footer a {
     overflow-x: hidden;
   }
   body.uploaded {
-    height: 135%;
-    overflow: hidden;
+    height: 110%;
+    overflow: visible;
     width: 100%;
     margin: 0;
     padding: 0;
