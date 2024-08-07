@@ -1027,6 +1027,7 @@ footer a {
     .effects-text {
         // border: 2px solid red;
         font-size: 3.5vw;
+        margin-top: 0.5em;
         // white-space: wrap;
         // text-wrap: wrap;
     }
@@ -1054,6 +1055,7 @@ footer a {
         font-size: clamp(0.5em, 3.1vw, 1em);
         margin-top: 0em;
         // padding-top: 1em;
+        margin-top: 3em;
         margin-bottom: -2em;
     }
     .resetBtn {
@@ -1096,7 +1098,7 @@ footer a {
         grid-row: 3;
         // border: 2px solid black;
         // margin-top: -1em;
-        margin-bottom: -1em;
+        margin-bottom: -0.5em;
     }
     #times {
         // border: 2px solid white;

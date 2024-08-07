@@ -726,6 +726,7 @@ footer a {
   }
   .effects-text {
     font-size: 3.5vw;
+    margin-top: 0.5em;
   }
   .effects-text span {
     font-size: 3vw;
@@ -742,6 +743,7 @@ footer a {
   .div-buttons {
     font-size: clamp(0.5em, 3.1vw, 1em);
     margin-top: 0em;
+    margin-top: 3em;
     margin-bottom: -2em;
   }
   .resetBtn {
@@ -773,7 +775,7 @@ footer a {
     justify-content: flex-end;
     justify-self: center;
     grid-row: 3;
-    margin-bottom: -1em;
+    margin-bottom: -0.5em;
   }
   #times {
     width: 90vw;
