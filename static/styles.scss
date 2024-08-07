@@ -836,12 +836,12 @@ footer a {
         overflow:hidden;
         overflow-x: hidden;
     }
-    body {
+    body, body.uploaded {
         // width: 50%;
         display: flex;
-        justify-content: center;
-        justify-items: center;
-        justify-self: center;
+        justify-content: flex-start;
+        justify-items: flex-start;
+        justify-self: flex-start;
         align-items: center;
         align-content: center;
         align-self: center;
@@ -861,22 +861,23 @@ footer a {
     .content, .content.uploaded {
         margin: 0;
         padding: 0;
-        height: 80%;
-        // width: 80%;
+        height: 100%;
+        width: 100%;
         border: 2px solid green;
         // display: block;
         // display:grid;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        justify-items: center;
-        justify-self: center;
-        align-items: center;
-        align-content: center;
-        align-self: center;
+        justify-content: flex-start;
+        justify-items: flex-start;
+        justify-self: flex-start;
+        // align-items: center;
+        // align-content: center;
+        // align-self: center;
+        grid-template-rows: 13% 72% 15%;
     }
 
-    .content h1 {
+    .content h1, .content.uploaded h1 {
         font-size: 7vw;
         width: 100vw;
         margin-left: 0.5em;
@@ -884,26 +885,15 @@ footer a {
         white-space: wrap;
         text-wrap: wrap;
         // margin-top: 4%;
-        // margin-top: 0;
-        // padding-top: 0;
-    }
-    .content.uploaded h1 {
-        // font-size: 6vw;
-        // width: 100vw;
-        // white-space: wrap;
-        // text-wrap: wrap;
-        // margin: 0 0 0 0;
-        // padding: 0 0 0 0;
-        // margin-bottom: 3%;
-        // margin-top: 4%;
-        // // border: 2px solid white;
+        margin-top: 0;
+        padding-top: 0;
     }
 
     #fileUploadStyling.uploaded {
         // text-wrap: nowrap;
         // white-space: nowrap;
 
-        margin: 0em 0.5em 0em 0em;
+        margin: -1em 0.5em 0em 0em;
         padding: 0.7em 0 0.5em 0;
         padding-left: 0.8em;
         padding-right: 0.2em;
@@ -917,9 +907,9 @@ footer a {
         // margin: 0 0 0 0;
         // padding: 0 0 0 0;
     }
-    #downloadBtn {
+    #downloadBtn, #downloadBtn.uploaded {
         // white-space: nowrap;
-        margin: 0em 1em 0em 0.5em;
+        margin: -1em 1em 0em 0.5em;
         padding: 0.7em 0 0.5em 0;
         padding-left: 0.8em;
         padding-right: 0.2em;
@@ -933,16 +923,35 @@ footer a {
         height: 3vh;
     }
 
+    #formDiv.uploaded {
+        border: 2px solid white;
+        margin: 1em 0 0 0;
+        padding: 0 0 0 0;
+        grid-row: 1;
+        justify-content: flex-start;
+        justify-items: flex-start;
+        justify-self: flex-start;
+    }
 
     #main-container {
-        // border: 2px solid green;
+        border: 2px solid green;
         // max-width: 100%;
-        justify-content: center;
+        // justify-content: center;
         max-width: 97vw;
+        height: 100%;
         // justify-items: center;
-        justify-self: center;
-        margin-top: 5%;
-        padding-top: 5%;
+        // justify-self: center;
+        // margin-top: 5%;
+        // padding-top: 5%;
+        grid-row: 2;
+        margin: -2em 0 0 0;
+        padding: 0 0 0 0;
+        // display: flex;
+        // justify-content: flex-start;
+        // justify-items: flex-start;
+        // justify-self: flex-start;
+        // align-content: flex-start;
+        // align-self: flex-start;
         
     }
     #visuals-container {
@@ -957,6 +966,7 @@ footer a {
         justify-content: center;
         // border: 2px solid white;
         margin-left: -0.3em;
+        margin-top: -5em;
     }
 
     #songTitle {
@@ -1042,7 +1052,7 @@ footer a {
     .div-buttons {
         // border: 2px solid yellow;
         font-size: clamp(0.5em, 3.1vw, 1em);
-
+        margin-top: -4em;
     }
     .resetBtn {
         z-index: 15;
@@ -1056,8 +1066,10 @@ footer a {
         font-size: (5vh, 0.9em, 8vh);
     }
     .effectSlider {
-        // width: 1vmax;
-        // min-width: 1em; /* Full width */
+        width: 33vh;
+        height: 2vh;
+        margin-top: -5em;
+        padding-top: 0;
     }
     .effectSlider::-webkit-slider-thumb {
         width: 1.3em; /* Thumb width */
@@ -1079,9 +1091,9 @@ footer a {
         display: flex;
         justify-content: flex-end;
         justify-self: center;
-
+        grid-row: 3;
         // border: 2px solid black;
-        
+        margin-top: -5em;
     }
     #times {
         // border: 2px solid white;
