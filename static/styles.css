@@ -584,6 +584,7 @@ footer a {
     justify-content: center;
     justify-items: center;
     justify-self: center;
+    margin-bottom: -1em;
   }
   #visualizerCanvas {
     width: clamp(40em, 55vmin, 80em);
@@ -600,6 +601,7 @@ footer a {
     justify-self: center;
     margin-left: 1em;
     margin-top: -3em;
+    margin-bottom: 2em;
   }
   #time-outer-div {
     display: flex;
