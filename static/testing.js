@@ -20,6 +20,90 @@ import { visualizeAudio } from "./visualizer.js";
     // let sourceNode;
 
 
+    let sourceNode;
+    async function fetchAudioBuffer(url, audioContext) {
+        try {
+            const response = await fetch(url);
+            const arrayBuffer = await response.arrayBuffer();
+            const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+            console.log("Audio buffer fetched and decoded successfully.");
+            return audioBuffer;
+        }
+        catch (error) {
+            console.error("Error fetching or decoding audio data:", error);
+            throw error;
+        }
+
+    }
+    let mainAudioBuffer = null;
+    async function loadAudioBuffer() {
+        try {
+            mainAudioBuffer = await fetchAudioBuffer(audioElement.src, audioContext);
+            console.log("mainAudioBuffer is loaded");
+        } catch (error) {
+            console.error("Error loading audio buffer:", error);
+        }
+    }
+
+    function setupSourceNode() {
+        // const audioBuffer = await fetchAudioBuffer(audioElement.src, audioContext);
+        if (sourceNode) {
+            sourceNode.disconnect();
+            console.log("Previous source node disconnected.");
+        }
+        sourceNode = audioContext.createBufferSource();
+        if (mainAudioBuffer) {
+            sourceNode.buffer = mainAudioBuffer;
+            console.log("Source node buffer set to mainAudioBuffer.");
+        }
+        else {
+            console.error("audio buffer not loaded");
+            return;
+        }
+
+        // sourceNode.playbackRate.value = audioElement.playbackRate;
+        sourceNode.connect(gainNode);
+        // console.log("Source node connected to gain node.");
+        // sourceNode.onended = () => {
+        //     isPlaying = false;
+        // };
+        // sourceNode.connect(wetGainNode);
+        // sourceNode.connect(dryGainNode);
+        // sourceNode.connect(analyserNode);
+        // sourceNode.start(0, audioElement.currentTime); //play from currentTime 
+    }
+
+
+    async function playAudio() {
+        // if (isPlaying) return;
+        if (!mainAudioBuffer) {
+            console.log("Loading audio buffer...");
+            await loadAudioBuffer();
+        }
+        setupSourceNode();
+        if (mainAudioBuffer) {
+            const factor = shift_factor(speedControl.value);
+
+            sourceNode.playbackRate.value = factor;
+            audioElement.playbackRate = factor;
+            sourceNode.start(0, audioElement.currentTime); //play from currentTime 
+            console.log("Source node started at current time:", audioElement.currentTime);
+        } else {
+            console.error("Cannot start source node as mainAudioBuffer is not loaded.");
+        }
+        // isPlaying = true;
+    }
+    loadAudioBuffer();
+    setupSourceNode();
+
+
+
+
+
+
+
+
+
 
     // song title - removed path & extension
     const songTitle = document.getElementById('songTitle');
@@ -174,86 +258,6 @@ import { visualizeAudio } from "./visualizer.js";
 
 
 
-    let sourceNode;
-    async function fetchAudioBuffer(url, audioContext) {
-        try {
-            const response = await fetch(url);
-            const arrayBuffer = await response.arrayBuffer();
-            const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-            console.log("Audio buffer fetched and decoded successfully.");
-            return audioBuffer;
-        }
-        catch (error) {
-            console.error("Error fetching or decoding audio data:", error);
-            throw error;
-        }
-
-    }
-    let mainAudioBuffer = null;
-    async function loadAudioBuffer() {
-        try {
-            mainAudioBuffer = await fetchAudioBuffer(audioElement.src, audioContext);
-            console.log("mainAudioBuffer is loaded:");
-        } catch (error) {
-            console.error("Error loading audio buffer:", error);
-        }
-    }
-
-    function setupSourceNode() {
-        // const audioBuffer = await fetchAudioBuffer(audioElement.src, audioContext);
-        if (sourceNode) {
-            sourceNode.disconnect();
-            console.log("Previous source node disconnected.");
-        }
-        sourceNode = audioContext.createBufferSource();
-        if (mainAudioBuffer) {
-            sourceNode.buffer = mainAudioBuffer;
-            console.log("Source node buffer set to mainAudioBuffer.");
-        }
-        else {
-            console.error("audio buffer not loaded");
-            return;
-        }
-
-        // sourceNode.playbackRate.value = audioElement.playbackRate;
-        sourceNode.connect(gainNode);
-        // console.log("Source node connected to gain node.");
-        // sourceNode.onended = () => {
-        //     isPlaying = false;
-        // };
-        // sourceNode.connect(wetGainNode);
-        // sourceNode.connect(dryGainNode);
-        // sourceNode.connect(analyserNode);
-        // sourceNode.start(0, audioElement.currentTime); //play from currentTime 
-    }
-
-
-    async function playAudio() {
-        // if (isPlaying) return;
-        if (!mainAudioBuffer) {
-            console.log("Loading audio buffer...");
-            await loadAudioBuffer();
-        }
-        setupSourceNode();
-        if (mainAudioBuffer) {
-            const factor = shift_factor(speedControl.value);
-
-            sourceNode.playbackRate.value = factor;
-            audioElement.playbackRate = factor;
-            sourceNode.start(0, audioElement.currentTime); //play from currentTime 
-            console.log("Source node started at current time:", audioElement.currentTime);
-        } else {
-            console.error("Cannot start source node as mainAudioBuffer is not loaded.");
-        }
-        // isPlaying = true;
-    }
-    loadAudioBuffer();
-    setupSourceNode();
-
-
-
-
-
 
 
 
@@ -327,7 +331,6 @@ import { visualizeAudio } from "./visualizer.js";
             if (sourceNode==true && prevPause == true) {
                 sourceNode.stop();
                 sourceNode.disconnect();
-                console.log("fart")
             }
 
             // sourceNode.start(0, audioElement.currentTime);
@@ -405,7 +408,6 @@ import { visualizeAudio } from "./visualizer.js";
                 if (sourceNode==true && prevPause == true) {
                     sourceNode.stop();
                     sourceNode.disconnect();
-                    console.log("fart")
                 }
     
                 // sourceNode.start(0, audioElement.currentTime);
