@@ -925,7 +925,7 @@ footer a {
 
     #formDiv.uploaded {
         border: 2px solid white;
-        margin: 1em 0 0 0;
+        margin: 0 0 0 0;
         padding: 0 0 0 0;
         grid-row: 1;
         justify-content: flex-start;
@@ -1052,7 +1052,7 @@ footer a {
     .div-buttons {
         // border: 2px solid yellow;
         font-size: clamp(0.5em, 3.1vw, 1em);
-        margin-top: -4em;
+        margin-top: -2em;
     }
     .resetBtn {
         z-index: 15;
@@ -1066,7 +1066,7 @@ footer a {
         font-size: (5vh, 0.9em, 8vh);
     }
     .effectSlider {
-        width: 33vh;
+        width: 30vh;
         height: 2vh;
         margin-top: -5em;
         padding-top: 0;
@@ -1093,7 +1093,7 @@ footer a {
         justify-self: center;
         grid-row: 3;
         // border: 2px solid black;
-        margin-top: -5em;
+        margin-top: -4em;
     }
     #times {
         // border: 2px solid white;
