@@ -694,8 +694,8 @@ footer a {
     overflow-wrap: break-word;
     word-wrap: break-word;
     white-space: normal;
-    margin-bottom: -5%;
-    margin-top: 0%;
+    margin-bottom: -5em;
+    padding-top: 5em;
   }
   #canvasContainer {
     margin-top: -1em;
@@ -761,8 +761,8 @@ footer a {
   .effectSlider {
     width: 32vh;
     height: 2vh;
-    margin-top: 2.5em;
-    margin-bottom: 0.25em;
+    margin-top: 2.2em;
+    margin-bottom: 0.35em;
   }
   .effectSlider::-webkit-slider-thumb {
     width: 1.3em; /* Thumb width */
