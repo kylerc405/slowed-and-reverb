@@ -526,7 +526,7 @@ footer a {
   #main-container {
     margin-top: 8em;
     padding-top: 1em;
-    margin-bottom: -1em;
+    margin-bottom: 1em;
   }
   #downloadBtn {
     padding: 0.5em;
@@ -549,7 +549,6 @@ footer a {
     display: flex;
   }
   .effects-class {
-    border: 2px solid white;
     height: 90%;
     margin: 0 0 0 0;
     padding: 0 0 0 0;
@@ -585,7 +584,7 @@ footer a {
     justify-content: center;
     justify-items: center;
     justify-self: center;
-    margin-top: -6%;
+    margin-top: -4%;
   }
   #visualizerCanvas {
     width: clamp(40em, 55vmin, 80em);
@@ -601,6 +600,7 @@ footer a {
     justify-content: center;
     justify-self: center;
     margin-left: 1em;
+    margin-top: -1em;
   }
   #time-outer-div {
     display: flex;
