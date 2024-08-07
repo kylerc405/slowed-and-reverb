@@ -4,7 +4,8 @@ import { visualizeAudio } from "./visualizer.js";
     document.addEventListener('DOMContentLoaded', async function () {
 
     const audioElement = document.getElementById('audioPlayer');
-    audioElement.muted = true;
+    // audioElement.muted = true;
+    audioElement.volume = 0.0001;
     const playPauseButton = document.getElementById('playpause');
     // const source = document.getElementById('audioSource');
     let isPlaying = false;
