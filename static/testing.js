@@ -65,6 +65,10 @@ import { visualizeAudio } from "./visualizer.js";
     async function loadAudioBuffer() {
         try {
             if (file != " ") {
+                const inputs = document.querySelectorAll('input, button, select, textarea, [contenteditable]');
+                inputs.forEach(input => {
+                    input.disabled = true;
+                });
                 mainContainer.style.opacity = "0";
                 timeouterdiv.style.opacity = "0";
                 // fileUploadStyling.style.display = "none";
@@ -80,6 +84,10 @@ import { visualizeAudio } from "./visualizer.js";
         }
         finally {
             if (file != " ") {
+                const inputs = document.querySelectorAll('input, button, select, textarea, [contenteditable]');
+                inputs.forEach(input => {
+                    input.disabled = false;
+                });
                 downloadBtn.style.display = "inline-flex";
                 mainContainer.style.opacity = "1";
                 timeouterdiv.style.opacity = "1";
