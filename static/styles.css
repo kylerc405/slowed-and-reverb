@@ -148,6 +148,7 @@ body {
   letter-spacing: 0.5em;
   margin-right: 2.3em;
   z-index: 12;
+  font-size: 0.9em;
 }
 
 #downloadBtn:hover {
@@ -699,7 +700,6 @@ footer {
     padding-left: 0.4em;
     padding-right: 0.2em;
     text-align: center;
-    font-size: 1.6vh;
     width: 30vw;
     height: 3vh;
   }
