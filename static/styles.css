@@ -480,14 +480,30 @@ body {
 footer {
   color: rgba(206, 149, 111, 0.822);
   display: flex;
-  justify-content: flex-end;
-  align-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
+  box-sizing: border-box;
   letter-spacing: 0.1em;
+  width: 90%;
 }
 
-footer a {
+.footer-content {
   color: #f5deb3;
+  flex: 1;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-color {
+  display: flex;
+  align-items: center;
+}
+
+.footer-color input {
+  margin-left: auto;
 }
 
 @media only screen and (max-width: 1100px) and (min-width: 700px) {

@@ -208,6 +208,11 @@ body {
     margin-right: 2.3em;
     z-index: 12;
     // box-shadow: 2px 2px 4px rgb(17, 17, 17);
+
+    // white-space: normal;
+    // // box-sizing: border-box;
+    // overflow-wrap: break-word;
+    // word-wrap: break-word;
 }
 
 #downloadBtn:hover {
@@ -691,25 +696,44 @@ body {
 footer {
     color: $secondary-text;
     display: flex;
+    flex-direction: row;
     // border: 2px solid white;
-    justify-content: flex-end;
-    align-content: center;
+    justify-content: space-between;
+    // align-content: center;
     align-items: center;
     // background-color:rgba(255, 255, 255, 0.932);
     // width: 85%; /* Ensures footer spans the full width of its container */
     // border: 2px solid white;
+    box-sizing: border-box;
     // padding: 10px; /* Optional padding */
     // font-family: 'Poppins', 'sans-serif';
     letter-spacing: 0.1em;
+    width: 90%;
     // padding-bottom: 1px;
 }
-footer a {
+.footer-content {
     // text-decoration: none;
     color: $main-text;
+    flex: 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 // footer img {
 //     vertical-align: middle; /* Aligns the middle of the image with the text */
 // }
+
+.footer-color {
+    // margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.footer-color input {
+    margin-left: auto;
+}
+
 
 @media only screen and (max-width: 1100px) and (min-width: 700px) {
     #songTitle {

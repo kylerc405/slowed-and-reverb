@@ -20,10 +20,23 @@
 </body>
 
 <footer>  
-    <p>Made By Kyler Chen&nbsp;&nbsp;|&nbsp;&nbsp;</p>
-    <p><a href="https://github.com/kylerc405" target="_blank"><img src="{{ url_for('static', filename='icons/github.png') }}" width="23em"></a></p>
-    <p>&nbsp;&nbsp;|&nbsp;&nbsp;</p>
-    <p><a href="https://instagram.com/kyler.chen" target="_blank"><img src="{{ url_for('static', filename='icons/instagram.png') }}" width="23em"></a></p>
+    <div class="footer-content">
+        <p>Made By Kyler Chen&nbsp;&nbsp;|&nbsp;&nbsp;</p>
+        <p><a href="https://github.com/kylerc405" target="_blank"><img src="{{ url_for('static', filename='icons/github.png') }}" width="23em"></a></p>
+        <p>&nbsp;&nbsp;|&nbsp;&nbsp;</p>
+        <p><a href="https://instagram.com/kyler.chen" target="_blank"><img src="{{ url_for('static', filename='icons/instagram.png') }}" width="23em"></a></p>
+    </div>
+    
+    <div class="footer-color">
+        <input type="color" id="colorPicker"/>
+    </div>
+
+    <script>
+        const colorPicker = document.getElementById('colorPicker');
+        colorPicker.addEventListener('input', () => {
+            body.style.backgroundColor = colorPicker.value;
+        });
+    </script>
 </footer>
 
 </html>
