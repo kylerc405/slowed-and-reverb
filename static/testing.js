@@ -26,14 +26,13 @@ import { visualizeAudio } from "./visualizer.js";
     // window.audioSource = source
     // let sourceNode;
 
-    const background = document.body;
+
     let audioReady = false;
 
 
     async function fetchAudioBuffer(url, audioContext) {
         try {
             audioReady = false;
-            document.body.classList.add('loading'); // Show loading screen
             const response = await fetch(url);
             console.log("fetched audio data...");
             const arrayBuffer = await response.arrayBuffer();
@@ -47,18 +46,47 @@ import { visualizeAudio } from "./visualizer.js";
         catch (error) {
             console.error("Error fetching or decoding audio data:", error);
             throw error;
-        } finally {
-            document.body.classList.remove('loading'); // Hide loading screen
-        }
+        } 
+
 
     }
 
+    const mainContainer = document.getElementById("main-container");
+    const timeouterdiv = document.getElementById("time-outer-div");
+    const fileUploadStyling = document.getElementById("fileUploadStyling");
+    const newText = document.createTextNode("Processing Audio...");
+    const ogText = document.createTextNode("Select an Audio File");
+    // const label = fileUploadStyling.querySelector("label");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const songTitle = document.getElementById('songTitle');
+    const file = songTitle.getAttribute('data-song-name');
+
+    
     async function loadAudioBuffer() {
         try {
+            if (file != " ") {
+                mainContainer.style.opacity = "0";
+                timeouterdiv.style.opacity = "0";
+                // fileUploadStyling.style.display = "none";
+                fileUploadStyling.replaceChild(newText, fileUploadStyling.firstChild);
+                downloadBtn.style.display = "none";
+            }
+
+
             mainAudioBuffer = await fetchAudioBuffer(audioElement.src, audioContext);
             console.log("mainAudioBuffer is loaded");
         } catch (error) {
             console.error("Error loading audio buffer:", error);
+        }
+        finally {
+            if (file != " ") {
+                downloadBtn.style.display = "inline-flex";
+                mainContainer.style.opacity = "1";
+                timeouterdiv.style.opacity = "1";
+                // fileUploadStyling.style.display = "inline-flex";
+                fileUploadStyling.replaceChild(ogText, fileUploadStyling.firstChild);
+            }
+            
         }
     }
     await loadAudioBuffer();
@@ -122,8 +150,6 @@ import { visualizeAudio } from "./visualizer.js";
 
 
     // song title - removed path & extension
-    const songTitle = document.getElementById('songTitle');
-    const file = songTitle.getAttribute('data-song-name');
     if (file != " ") {
         songTitle.textContent = "[ " + file + " ]";
     }
@@ -180,7 +206,7 @@ import { visualizeAudio } from "./visualizer.js";
     audioElement.onloadedmetadata = function() {
         updateRemainingTime();
     };
-    // updateRemainingTime();
+    updateRemainingTime();
 
 
 
@@ -712,9 +738,6 @@ import { visualizeAudio } from "./visualizer.js";
                 } else if (channelData[i] < -threshold) {
                     channelData[i] = -threshold;
                 }
-                if (i < 200) {
-                    console.log("limited value: " + channelData[i])
-                }
                 }
         }
         return buffer;
@@ -799,9 +822,10 @@ import { visualizeAudio } from "./visualizer.js";
     }
     
     
-    const downloadBtn = document.getElementById("downloadBtn");
+    // const downloadBtn = document.getElementById("downloadBtn");
     
     downloadBtn.addEventListener("click", async () => {
+        downloadBtn.textContent = "Downloading...";
         const url = audioElement.src;
         const buffer = await fetchAudioBuffer(url, audioContext);
 
@@ -888,6 +912,8 @@ import { visualizeAudio } from "./visualizer.js";
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
+
+        downloadBtn.textContent = "Download Audio";
     });
 });
 
