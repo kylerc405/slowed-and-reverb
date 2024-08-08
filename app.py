@@ -17,8 +17,8 @@ app = Flask(__name__)
 Scss(app)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'default_secret_key')
 
-# app.config['UPLOAD_FOLDER'] = '/tmp'
-app.config['UPLOAD_FOLDER'] = 'C:/Users/kchen/AppData/Local/Temp'
+app.config['UPLOAD_FOLDER'] = '/tmp'
+# app.config['UPLOAD_FOLDER'] = 'C:/Users/kchen/AppData/Local/Temp'
 
 
 # os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
@@ -135,8 +135,8 @@ def uploaded_file(filename): # runs when someone visits /uploads/<filename>
 if __name__ == "__main__":
     # with app.app_context():
     #     db.create_all()
-    # app.run(debug=False, host='0.0.0.0')
-    app.run(debug=True)
+    app.run(debug=False, host='0.0.0.0')
+    # app.run(debug=True)
 
 
 
