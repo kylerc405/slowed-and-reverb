@@ -2,8 +2,14 @@ import { visualizeAudio } from "./visualizer.js";
 // import { downloader } from "./downloader.js";
 
     document.addEventListener('DOMContentLoaded', async function () {
+    let sourceNode;
+    let mainAudioBuffer = null;
+
+
 
     const audioElement = document.getElementById('audioPlayer');
+    audioElement.muted = true;
+    // audioElement.volume = 0.0001;
     const playPauseButton = document.getElementById('playpause');
     // const source = document.getElementById('audioSource');
     let isPlaying = false;
@@ -13,8 +19,138 @@ import { visualizeAudio } from "./visualizer.js";
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     const audioContext = new AudioContext();
 
-    const source = audioContext.createMediaElementSource(audioElement); // input source
-    window.audioSource = source
+    const gainNode = audioContext.createGain();
+    gainNode.gain.value = 1;
+
+    // const source = audioContext.createMediaElementSource(audioElement); // input source
+    // window.audioSource = source
+    // let sourceNode;
+
+
+    let audioReady = false;
+
+
+    async function fetchAudioBuffer(url, audioContext) {
+        try {
+            audioReady = false;
+            const response = await fetch(url);
+            console.log("fetched audio data...");
+            const arrayBuffer = await response.arrayBuffer();
+            console.log("created array buffer...");
+            const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+            // background.style.backgroundColor = "red";
+            console.log("created audio buffer...");
+            audioReady = true;
+            return audioBuffer;
+        }
+        catch (error) {
+            console.error("Error fetching or decoding audio data:", error);
+            throw error;
+        } 
+
+
+    }
+
+    const mainContainer = document.getElementById("main-container");
+    const timeouterdiv = document.getElementById("time-outer-div");
+    const fileUploadStyling = document.getElementById("fileUploadStyling");
+    const newText = document.createTextNode("Processing Audio...");
+    const ogText = document.createTextNode("Select an Audio File");
+    // const label = fileUploadStyling.querySelector("label");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const songTitle = document.getElementById('songTitle');
+    const file = songTitle.getAttribute('data-song-name');
+
+    
+    async function loadAudioBuffer() {
+        try {
+            if (file != " ") {
+                const inputs = document.querySelectorAll('input, button, select, textarea, [contenteditable]');
+                inputs.forEach(input => {
+                    input.disabled = true;
+                });
+                mainContainer.style.opacity = "0";
+                timeouterdiv.style.opacity = "0";
+                // fileUploadStyling.style.display = "none";
+                fileUploadStyling.replaceChild(newText, fileUploadStyling.firstChild);
+                downloadBtn.style.display = "none";
+            }
+
+
+            mainAudioBuffer = await fetchAudioBuffer(audioElement.src, audioContext);
+            console.log("mainAudioBuffer is loaded");
+        } catch (error) {
+            console.error("Error loading audio buffer:", error);
+        }
+        finally {
+            if (file != " ") {
+                const inputs = document.querySelectorAll('input, button, select, textarea, [contenteditable]');
+                inputs.forEach(input => {
+                    input.disabled = false;
+                });
+                downloadBtn.style.display = "inline-flex";
+                mainContainer.style.opacity = "1";
+                timeouterdiv.style.opacity = "1";
+                // fileUploadStyling.style.display = "inline-flex";
+                fileUploadStyling.replaceChild(ogText, fileUploadStyling.firstChild);
+            }
+            
+        }
+    }
+    await loadAudioBuffer();
+
+    function setupSourceNode() {
+        // const audioBuffer = await fetchAudioBuffer(audioElement.src, audioContext);
+        if (!mainAudioBuffer) {
+            console.error("tried to set up source node before audio buffer loaded");
+            return;
+        }
+        if (sourceNode) {
+            sourceNode.disconnect();
+            console.log("Previous source node disconnected.");
+        }
+        sourceNode = audioContext.createBufferSource();
+        sourceNode.buffer = mainAudioBuffer;
+        console.log("Source node buffer set to mainAudioBuffer.");
+
+
+        // sourceNode.playbackRate.value = audioElement.playbackRate;
+        sourceNode.connect(gainNode);
+        // console.log("Source node connected to gain node.");
+        // sourceNode.onended = () => {
+        //     isPlaying = false;
+        // };
+        // sourceNode.connect(wetGainNode);
+        // sourceNode.connect(dryGainNode);
+        // sourceNode.connect(analyserNode);
+        // sourceNode.start(0, audioElement.currentTime); //play from currentTime 
+    }
+    setupSourceNode();
+
+    async function playAudio() {
+        // if (isPlaying) return;
+        if (!mainAudioBuffer) {
+            console.log("Loading audio buffer...");
+            await loadAudioBuffer();
+        }
+        setupSourceNode();
+        if (mainAudioBuffer) {
+            const factor = shift_factor(speedControl.value);
+
+            sourceNode.playbackRate.value = factor;
+            audioElement.playbackRate = factor;
+            sourceNode.start(0, audioElement.currentTime); //play from currentTime 
+            console.log("Source node started at current time:", audioElement.currentTime);
+        } else {
+            console.error("Cannot start source node as mainAudioBuffer is not loaded.");
+        }
+        // isPlaying = true;
+    }
+
+
+
+
+
 
 
 
@@ -22,8 +158,6 @@ import { visualizeAudio } from "./visualizer.js";
 
 
     // song title - removed path & extension
-    const songTitle = document.getElementById('songTitle');
-    const file = songTitle.getAttribute('data-song-name');
     if (file != " ") {
         songTitle.textContent = "[ " + file + " ]";
     }
@@ -41,7 +175,8 @@ import { visualizeAudio } from "./visualizer.js";
     function updateRemainingTime() {
         const duration = audioElement.duration;
         const currentTime = audioElement.currentTime;
-        const playbackRate = audioElement.playbackRate;
+        // const playbackRate = audioElement.playbackRate;
+        const playbackRate = sourceNode ? sourceNode.playbackRate.value : 1;
 
         if (duration) {
             const newCur = currentTime / playbackRate;
@@ -85,8 +220,7 @@ import { visualizeAudio } from "./visualizer.js";
 
 
     // gain
-    const gainNode = audioContext.createGain();
-    gainNode.gain.value = 1;
+
 
 
 
@@ -173,10 +307,16 @@ import { visualizeAudio } from "./visualizer.js";
 
 
 
+
+
+
+
+
+
     // connections - dry
     // source -> gain -> dry -> (mixed/analyser) -> destination
     // source.connect(gainNode);
-    source.connect(gainNode);
+    // source.connect(gainNode);
     gainNode.connect(dryGainNode);
     dryGainNode.connect(audioContext.destination)
 
@@ -212,30 +352,59 @@ import { visualizeAudio } from "./visualizer.js";
 
 
     // play/pause button
+
+    let prevPause = false;
+
     playPauseButton.addEventListener('click', function() {
         if (audioContext.state === "suspended") {
             audioContext.resume();
         }
         if (isPlaying) {
             audioElement.pause();
+            if (sourceNode) {
+                sourceNode.stop();
+                sourceNode.disconnect();
+                console.log("stopped and disconnected")
+            }
             playPauseButton.setAttribute('data-playing', 'false');
             // playPauseButton.textContent = "▶"
+
+            console.log("paused at " + audioElement.currentTime)
+            prevPause = true;
         }
         else {
             audioElement.play();
+            if (!mainAudioBuffer) {
+                loadAudioBuffer();
+            }
+            if (sourceNode==true && prevPause == true) {
+                sourceNode.stop();
+                sourceNode.disconnect();
+            }
+
+            // sourceNode.start(0, audioElement.currentTime);
+
+            // setupSourceNode();
+
+            playAudio();
+            // sourceNode.start(0, audioElement.currentTime);
+            // counter++;
+            // console.log("initial counter 0 start, counter now == " + counter)
             playPauseButton.setAttribute('data-playing', 'true');
             // playPauseButton.textContent = "❚❚"
+
+            console.log("played")
         }
         isPlaying = !isPlaying;
     })
 
 
     // song progress bar
-    const audioPlayer = document.getElementById("audioPlayer");
+    // const audioPlayer = document.getElementById("audioPlayer");
     const slider = document.getElementById("timeline-slider");
 
-    audioPlayer.addEventListener("timeupdate", () => {
-        const percentage = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+    audioElement.addEventListener("timeupdate", () => {
+        const percentage = (audioElement.currentTime / audioElement.duration) * 100;
         slider.value = percentage;
 
         // played duration change color
@@ -244,8 +413,17 @@ import { visualizeAudio } from "./visualizer.js";
     })
 
     slider.addEventListener("input", () => {
-        const changeToTime = slider.value / 100 * audioPlayer.duration;
-        audioPlayer.currentTime = changeToTime;
+        const changeToTime = slider.value / 100 * audioElement.duration;
+        audioElement.currentTime = changeToTime;
+        if (sourceNode) {
+            sourceNode.stop();
+            sourceNode.disconnect();
+
+        }
+        if (isPlaying) {
+            playAudio();
+        }
+
     })
 
 
@@ -256,14 +434,39 @@ import { visualizeAudio } from "./visualizer.js";
             isPlaying = !isPlaying;
 
             if (!audioElement.paused) {
+                audioElement.pause();
                 playPauseButton.checked = false;
                 playPauseButton.setAttribute('data-playing', 'false');
-                audioElement.pause();
+                prevPause = true;
+
+                if (sourceNode) {
+                    sourceNode.stop();
+                    sourceNode.disconnect();
+                    console.log("stopped and disconnected")
+                }
+
             }
             else {
-                playPauseButton.checked = true;
-                playPauseButton.setAttribute('data-playing', 'true');
+                playAudio();
                 audioElement.play();
+                playPauseButton.checked = true;
+
+                if (!mainAudioBuffer) {
+                    loadAudioBuffer();
+                }
+                if (sourceNode==true && prevPause == true) {
+                    sourceNode.stop();
+                    sourceNode.disconnect();
+                }
+    
+                // sourceNode.start(0, audioElement.currentTime);
+    
+                // setupSourceNode();
+
+
+                playPauseButton.setAttribute('data-playing', 'true');
+    
+                console.log("played")
             }
 
         }
@@ -318,12 +521,23 @@ import { visualizeAudio } from "./visualizer.js";
                 playPauseButton.checked = false;
                 playPauseButton.setAttribute('data-playing', 'false');
                 audioElement.pause();
+
+                if (sourceNode){
+                    sourceNode.stop();
+                    sourceNode.disconnect();
+                }
+                
             }
             else {
                 slider.value = 0;
                 audioPlayer.currentTime = 0;
                 // playPauseButton.textContent = "▶";
                 playPauseButton.checked = false;
+
+                if (sourceNode){
+                    sourceNode.stop();
+                    sourceNode.disconnect();
+                }
             }
         },
         false,
@@ -336,10 +550,10 @@ import { visualizeAudio } from "./visualizer.js";
     const transposeValue = document.getElementById("transposeValue");
     // source.connect(pitchNode)
 
-    audioElement.preservesPitch = false;
-    audioElement.mozPreservesPitch = false;
-    audioElement.webkitPreservesPitch = false;
-    audioElement.playbackRate = 1;
+    // audioElement.preservesPitch = false;
+    // audioElement.mozPreservesPitch = false;
+    // audioElement.webkitPreservesPitch = false;
+    // audioElement.playbackRate = 1;
 
     function shift_factor(semitones) {
         return Math.pow(2, semitones/12);
@@ -347,7 +561,13 @@ import { visualizeAudio } from "./visualizer.js";
 
     speedControl.addEventListener("input", () => {
         const factor = shift_factor(speedControl.value);
-        audioElement.playbackRate = factor;
+        // audioElement.playbackRate = factor;
+
+        if (sourceNode) {
+            sourceNode.playbackRate.value = factor;
+            audioElement.playbackRate = factor;
+        }
+
         // sourceNode.playbackRate.value = factor;
         speedValue.textContent = factor.toFixed(2);
         if (speedControl.value > 0) {
@@ -356,21 +576,29 @@ import { visualizeAudio } from "./visualizer.js";
         else {
             transposeValue.textContent = speedControl.value;
         }
+        updateRemainingTime();
     },
     false);
     // pitch reset button
     const speedReset = document.getElementById("resetSpeed");
     speedReset.addEventListener("click", () => {
-        audioElement.playbackRate = 1.0;
+        // audioElement.playbackRate = 1.0;
+
+        if (sourceNode) {
+            sourceNode.playbackRate.value = 1.0;
+            audioElement.playbackRate = 1.0;
+        }
+
+
         speedValue.textContent = parseFloat(1.0).toFixed(2);
         speedControl.value = 0.0;
         transposeValue.textContent = 0;
         updateRemainingTime();
     })
-    //adjust timeline when pitch/speed changes
-    speedControl.addEventListener("input", () => {
-        updateRemainingTime();
-    });
+    // //adjust timeline when pitch/speed changes
+    // speedControl.addEventListener("input", () => {
+    //     updateRemainingTime();
+    // });
 
 
 
@@ -437,11 +665,11 @@ import { visualizeAudio } from "./visualizer.js";
         updateConvolver();
     })
 
-    async function fetchAudioBuffer(url, audioContext) {
-        const response = await fetch(url);
-        const arrayBuffer = await response.arrayBuffer();
-        return await audioContext.decodeAudioData(arrayBuffer);
-    }
+    // async function fetchAudioBuffer(url, audioContext) {
+    //     const response = await fetch(url);
+    //     const arrayBuffer = await response.arrayBuffer();
+    //     return await audioContext.decodeAudioData(arrayBuffer);
+    // }
 
     
 
@@ -502,6 +730,9 @@ import { visualizeAudio } from "./visualizer.js";
 
 
 
+// ---------------- download stuff ----------------------------------
+
+
 
 
     // allows wav audio to clip/distort (cool effect, as it does on the real-time site audio), 
@@ -514,9 +745,6 @@ import { visualizeAudio } from "./visualizer.js";
                     channelData[i] = threshold;
                 } else if (channelData[i] < -threshold) {
                     channelData[i] = -threshold;
-                }
-                if (i < 200) {
-                    console.log("limited value: " + channelData[i])
                 }
                 }
         }
@@ -602,9 +830,13 @@ import { visualizeAudio } from "./visualizer.js";
     }
     
     
-    const downloadBtn = document.getElementById("downloadBtn");
+    // const downloadBtn = document.getElementById("downloadBtn");
     
     downloadBtn.addEventListener("click", async () => {
+        if (window.innerWidth < 700) {
+            downloadBtn.style.letterSpacing = "0.3em";
+        }
+        downloadBtn.textContent = "Downloading ...";
         const url = audioElement.src;
         const buffer = await fetchAudioBuffer(url, audioContext);
 
@@ -691,6 +923,10 @@ import { visualizeAudio } from "./visualizer.js";
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
+        if (window.innerWidth < 700) {
+            downloadBtn.style.letterSpacing = "0.5em";
+        }
+        downloadBtn.textContent = "Download Audio";
     });
 });
 
