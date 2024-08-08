@@ -825,7 +825,9 @@ import { visualizeAudio } from "./visualizer.js";
     // const downloadBtn = document.getElementById("downloadBtn");
     
     downloadBtn.addEventListener("click", async () => {
-        downloadBtn.style.letterSpacing = "0.3em";
+        if (window.innerWidth < 700) {
+            downloadBtn.style.letterSpacing = "0.3em";
+        }
         downloadBtn.textContent = "Downloading ...";
         const url = audioElement.src;
         const buffer = await fetchAudioBuffer(url, audioContext);
@@ -913,7 +915,9 @@ import { visualizeAudio } from "./visualizer.js";
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        downloadBtn.style.letterSpacing = "0.5em";
+        if (window.innerWidth < 700) {
+            downloadBtn.style.letterSpacing = "0.5em";
+        }
         downloadBtn.textContent = "Download Audio";
     });
 });
